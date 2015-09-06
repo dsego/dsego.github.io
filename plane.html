@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>S-plane and Z-plane</title>
+<style>
+
+body {
+    font-family: sans-serif;
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: #ccc;
+}
+
+.axis>text {
+    font-size: 14px;
+}
+
+.tick>text {
+    fill: #666;
+    font-size: 12px;
+}
+
+.point {
+    fill: orange;
+}
+
+.arc {
+    stroke-width: 1px;
+    stroke: orange;
+}
+
+.vector {
+    stroke: orange;
+    stroke-width: 1px;
+}
+
+.pi-line {
+    stroke: #999;
+    stroke-width: 1px;
+}
+
+.pi-labels {
+    fill: #666;
+    font-size: 12px;
+}
+
+.unit-circle {
+    fill: #f6f6f6;
+    stroke: #ccc;
+    stroke-width: 1px;
+}
+
+.left-hal {
+    fill: #f6f6f6;
+    stroke: none;
+}
+
+.sine {
+    fill: none;
+    stroke: deeppink;
+    stroke-width: 1px;
+}
+
+.cosine {
+    fill: none;
+    stroke: dodgerblue;
+    stroke-width: 1px;
+}
+
+#formula {
+    padding: 10px;
+}
+
+#formula .re {
+    color: dodgerblue;
+}
+
+#formula .im {
+    color: deeppink;
+}
+
+
+</style>
+</head>
+<body>
+<div>
+    <svg id="time-plot"></svg>
+    <svg id="s-plane"></svg>
+    <svg id="z-plane"></svg>
+</div>
+<div id="formula"></div>
+
+<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<script>
+
+
+// Inspiration: http://werner.yellowcouch.org/Papers/zvss
+
+
+
+
+var padding = 20
+var width =  (window.innerWidth - padding * 8) / 3
+var height = width
+
+
+var timeplot = createTimeplot(d3.select('#time-plot'), width, height, padding)
+var splane = createSPlane(d3.select('#s-plane'), width, height, padding, splaneCallback)
+var zplane = createZPlane(d3.select('#z-plane'), width, height, padding, zplaneCallback)
+
+
+
+
+
+
+// CREATE GRAPHS ===============================================================
+
+
+function createXAxis(g, xscale, ypos, text) {
+    var axis = d3.svg.axis()
+        .scale(xscale)
+        .innerTickSize(0)
+        .outerTickSize(0)
+
+    g.attr({ class: 'axis x-axis', transform: translate(0, ypos) })
+        .call(axis)
+        .append('text')
+        .attr({ x: xscale.range()[1], y: -6 })
+        .style('text-anchor', 'end')
+        .text(text)
+}
+
+
+function createYAxis(g, yscale, xpos, text) {
+    var axis = d3.svg.axis()
+        .scale(yscale)
+        .innerTickSize(0)
+        .outerTickSize(0)
+        .orient('left')
+
+    g.attr({ class: 'axis y-axis', transform: translate(xpos, 0) })
+        .call(axis)
+        .append('text')
+        .attr({ transform: rotate(-90), y: 6, dy: '.71em' })
+        .style('text-anchor', 'end')
+        .text(text)
+}
+
+
+function createPaddedGraph(svg, width, height, padding) {
+    svg.attr({
+        width: width + padding*2,
+        height: height + padding*2
+    })
+    return svg.append('g').attr('transform', translate(padding, padding))
+}
+
+
+function createTimeplot(svg, width, height, padding) {
+    var graph = createPaddedGraph(svg, width, height, padding)
+
+    var t1 = 0, t2 = 10, dt = 0.01
+    var time = d3.range(t1, t2, dt)
+    var xscale = d3.scale.linear().domain([t1, t2]).range([0, width])
+    var yscale = d3.scale.linear().domain([5, -5]).range([0, height])
+
+    createXAxis(graph.append('g'), xscale, height/2, 'time')
+    createYAxis(graph.append('g'), yscale, 0)
+
+    graph.selectAll('.x-axis .tick')
+        .filter(function (d, i) { return i === 0 })
+        .remove()
+
+    var clippedArea = graph.append('g').attr( 'clip-path', 'url(#clip)')
+
+    var clip = svg.append('defs')
+        .append('svg:clipPath')
+        .attr('id', 'clip')
+        .append('rect')
+        .attr({ width: width, height: height })
+
+    clippedArea.append('path').attr('class', 'sine')
+    clippedArea.append('path').attr('class', 'cosine')
+
+    var line = d3.svg.line()
+        .x(function (d) { return xscale(d.x) })
+        .y(function (d) { return yscale(d.y) })
+
+    return {
+        updateTimeplot: function (real, imag) {
+            var cosine = time.map(function (t) { return { x: t, y: real(t) }})
+            var sine = time.map(function (t) { return { x: t, y: imag(t) }})
+            graph.select('.cosine').attr('d', line(cosine))
+            graph.select('.sine').attr('d', line(sine))
+        }
+    }
+
+}
+
+
+function createSPlane(svg, width, height, padding, callback) {
+    var graph = createPaddedGraph(svg, width, height, padding)
+    var xscale = d3.scale.linear().domain([-2, 2]).range([0, width])
+    var yscale = d3.scale.linear().domain([8, -8]).range([0, height])
+
+    graph.append('rect').attr({
+        class: 'left-hal',
+        x: 0,
+        y: 0,
+        width: width/2,
+        height: height
+    })
+
+    createXAxis(graph.append('g'), xscale, height/2, 'Re(s)')
+    createYAxis(graph.append('g'), yscale, width/2, 'Im(s)')
+    graph.selectAll('.axis .tick')
+        .filter(function (d) { return d === 0 })
+        .remove()
+
+    // PI and 2PI
+    graph.append('line').attr({
+        class: 'pi-line',
+        y1: yscale(Math.PI),
+        y2: yscale(Math.PI),
+        x1: 0,
+        x2: width,
+        'stroke-dasharray': '1,3'
+    })
+    graph.append('line').attr({
+        class: 'pi-line',
+        y1: yscale(2*Math.PI),
+        y2: yscale(2*Math.PI),
+        x1: 0,
+        x2: width,
+        'stroke-dasharray': '1,3'
+    })
+    graph.append('line').attr({
+        class: 'pi-line',
+        y1: yscale(-Math.PI),
+        y2: yscale(-Math.PI),
+        x1: 0,
+        x2: width,
+        'stroke-dasharray': '1,3'
+    })
+    graph.append('line').attr({
+        class: 'pi-line',
+        y1: yscale(-2*Math.PI),
+        y2: yscale(-2*Math.PI),
+        x1: 0,
+        x2: width,
+        'stroke-dasharray': '1,3'
+    })
+
+    var pi = graph.append('g').attr('class', 'pi-labels')
+    pi.append('text').attr({ x: width, dx: 3, y: yscale(2*Math.PI) }).text('2π')
+    pi.append('text').attr({ x: width, dx: 3, y: yscale(Math.PI) }).text('π')
+    pi.append('text').attr({ x: width, dx: 3, y: yscale(-Math.PI) }).text('-π')
+    pi.append('text').attr({ x: width, dx: 3, y: yscale(-2*Math.PI) }).text('-2π')
+
+    var point = graph.append('circle').attr({ class: 'point', r: 5 })
+
+    function placePoint(x, y) {
+        point.attr({ cx: x, cy: y })
+    }
+
+    svg.on('click', function svgClick() {
+        var x = d3.event.pageX - padding - svg.node().offsetLeft
+        var y = d3.event.pageY - padding - svg.node().offsetTop
+        placePoint(x, y)
+        callback(xscale.invert(x), yscale.invert(y))
+    })
+
+    return {
+        placePoint: function (x, y) {
+            placePoint(xscale(x), yscale(y))
+        }
+    }
+}
+
+
+function createZPlane(svg, width, height, padding, callback) {
+    var graph = createPaddedGraph(svg, width, height, padding)
+    var xscale = d3.scale.linear().domain([-1.5, 1.5]).range([0, width])
+    var yscale = d3.scale.linear().domain([1.5, -1.5]).range([0, height])
+
+    graph.append('ellipse').attr({
+        class: 'unit-circle',
+        cx: xscale(0),
+        cy: yscale(0),
+        rx: xscale(1) - xscale(0),
+        ry: yscale(0) - yscale(1)
+    })
+
+    createXAxis(graph.append('g'), xscale, height/2, 'Re(z)')
+    createYAxis(graph.append('g'), yscale, width/2, 'Im(z)')
+    graph.selectAll('.axis .tick')
+        .filter(function (d) { return d === 0 })
+        .remove()
+
+    var arc = graph.append('path').attr({
+        class: 'arc',
+        transform: translate(xscale(0), yscale(0))
+    })
+    var vector = graph.append('line').attr('class', 'vector')
+    var point = graph.append('circle').attr({ class: 'point', r: 5 })
+
+    function placePoint(x, y, angle) {
+        point.attr({ cx: x, cy: y })
+        vector.attr({
+            x1: xscale(0),
+            y1: yscale(0),
+            x2: x,
+            y2: y
+        })
+        var radius = distance(x - xscale(0), y - yscale(0))
+        if (radius > 30) {
+            radius = 30
+        }
+        arc.attr('d', d3.svg.arc()
+            .innerRadius(radius)
+            .outerRadius(radius)
+            .startAngle(Math.PI/2-angle)
+            .endAngle(Math.PI/2)
+        )
+    }
+
+    svg.on('click', function svgClick() {
+        var xpos = d3.event.pageX - padding - svg.node().offsetLeft
+        var ypos = d3.event.pageY - padding - svg.node().offsetTop
+        var x = xscale.invert(xpos)
+        var y = yscale.invert(ypos)
+        callback(x, y)
+        placePoint(xpos, ypos, angle(x, y))
+    })
+
+    return {
+        placePoint: function (x, y) {
+            placePoint(xscale(x), yscale(y), angle(x, y))
+        }
+    }
+}
+
+
+function splaneCallback(x, y) {
+    // e^st = e^(x + yi)t
+    var real = function (t) { return Math.exp(x * t) * Math.cos(y * t) }
+    var imag = function (t) { return Math.exp(x * t) * Math.sin(y * t) }
+    timeplot.updateTimeplot(real, imag)
+    var s = { x: x, y: y };
+    var z = stoz(s)
+    zplane.placePoint(z.x, z.y, distance(z.x, z.y), angle(z.x, z.y))
+    updateFormulas(z, s)
+}
+
+
+function zplaneCallback(x, y) {
+    // z^t = A^t * e^ωit
+    var A = distance(x, y).toFixed(2)
+    var w = angle(x, y).toFixed(2)
+    var real = function (t) { return Math.pow(A, t) * Math.cos(w * t) }
+    var imag = function (t) { return Math.pow(A, t) * Math.sin(w * t) }
+    timeplot.updateTimeplot(real, imag)
+    var z = { x: x, y: y }
+    var s = ztos(z)
+    splane.placePoint(s.x, s.y)
+    updateFormulas(z, s)
+}
+
+
+
+
+
+// UPDATE FORMULAS =============================================================
+
+
+function updateFormulas(z, s) {
+    document.getElementById('formula').innerHTML = interpolate(
+        'z<sup>t</sup> = e<sup>st</sup> <br><br> {} <br><br> {}',
+        sformula(s.x, s.y), zformula(z)
+    )
+}
+
+
+function sformula(x, y) {
+    x = x.toFixed(2)
+    y = y.toFixed(2)
+    return interpolate(
+        'e<sup>st</sup> = e<sup>(&sigma; + i&omega;)t</sup>' +
+        ' = e<sup>({} + i {})t</sup>' +
+        ' = <span class="re"> e<sup>{}t</sup> cos({}t) </span>' +
+        ' + i <span class="im"> e<sup>{}t</sup> sin({}t)</span>',
+        x, y, x, y, x, y
+    )
+}
+
+
+function zformula(z) {
+    var A = distance(z.x, z.y).toFixed(2)
+    var w = angle(z.x, z.y).toFixed(2)
+    return interpolate(
+        'z<sup>t</sup> = A<sup>t</sup> e<sup>&omega;it</sup>' +
+        ' = {}<sup>t</sup> e<sup>{}it</sup>' +
+        ' = <span class="re">{}<sup>t</sup> cos({}t) </span>' +
+        ' + i <span class="im">{}<sup>t</sup> sin({}t) </span>',
+        A, w, A, w, A, w
+    )
+}
+
+
+
+
+
+
+// HELPER FUNCTIONS ============================================================
+
+
+function distance(x, y) {
+    return Math.sqrt(x*x + y*y)
+}
+
+function angle(x, y) {
+    return Math.atan2(y, x)
+}
+
+function interpolate(string) {
+    var args = Array.prototype.slice.call(arguments, 1)
+    return string.replace(/{}/g, function () {
+        return args.shift()
+    })
+}
+
+function translate(x, y) {
+    return interpolate('translate({}, {})', x, y)
+}
+
+function rotate(angle) {
+    return interpolate('rotate({})', angle)
+}
+
+function stoz(s) {
+    // z = e^s
+    return {
+        x: Math.exp(s.x) * Math.cos(s.y),
+        y: Math.exp(s.x) * Math.sin(s.y)
+    }
+}
+
+function ztos(z) {
+    // z = e^s
+    // zx = e^sx * cos(sy)
+    // zy = e^sx * sin(sy)
+    // a = e^x * cos(y)
+    // b = e^x * sin(y)
+    // e^x = a / cos(y)
+    // e^x = b / sin(y)
+    // a / cos(y) = b / sin(y)
+    // a = b cos(y) / sin(y)
+    // cos(y) / sin(y) = a / b
+    // sin(y) / cos(y) = b / a
+    // tan(y) = b/a
+    // y = atan(b/a)
+    // e^x = a / cos(y)
+    // x = ln(a / cos(y))
+    var sy = Math.atan2(z.y, z.x)
+    return {
+        x: Math.log(z.x / Math.cos(sy)),
+        y: sy
+    }
+}
+
+
+
+</script>
+</body>
+</html>
+
+
