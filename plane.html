@@ -470,7 +470,7 @@ body {
             // e^st = e^(x + yi)t
             var real = function (t) { return Math.exp(pos.xi*t) * Math.cos(pos.yi*t) }
             var imag = function (t) { return Math.exp(pos.xi*t) * Math.sin(pos.yi*t) }
-            timeplot.update(imag, real)
+            timeplot.update(real, imag)
 
             sequationEl.innerHTML = sequationHtml(pos.xi, pos.yi)
             zequationEl.innerHTML = zequationHtml(z.x, z.y)
@@ -487,7 +487,7 @@ body {
             var w = angle(pos.xi, pos.yi).toFixed(2)
             var real = function (t) { return Math.pow(A, t) * Math.cos(w*t) }
             var imag = function (t) { return Math.pow(A, t) * Math.sin(w*t) }
-            timeplot.update(imag, real)
+            timeplot.update(real, imag)
 
             sequationEl.innerHTML = sequationHtml(s.x, s.y)
             zequationEl.innerHTML = zequationHtml(pos.xi, pos.yi)
