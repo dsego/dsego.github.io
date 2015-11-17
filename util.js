@@ -1,4 +1,4 @@
-
+'use strict'
 
 function partial(f) {
     var arity = f.length
@@ -10,7 +10,7 @@ function partial(f) {
         }
         var args = largs.concat(rargs)
         if (args.length >= arity) {
-            return f.apply(f, args)
+            return f.apply(undefined, args)
         }
         else {
             largs = args
@@ -27,6 +27,22 @@ function partial(f) {
 //     return [a, b, c]
 // }
 
+function throttle(fn, wait) {
+    var timeout = null
+    return function () {
+        if (timeout) return
+        var args = []
+        for (var i = 0; i < arguments.length; i++) {
+            args[i] = arguments[i]
+        }
+        timeout = window.setTimeout(function () {
+            fn.apply(undefined, args)
+            clearTimeout(timeout)
+            timeout = null
+        }, wait)
+    }
+}
+
 function sinewave(amp, freq, phase, t) {
     return amp * Math.sin(2.0 * Math.PI * freq * t + phase)
 }
@@ -39,9 +55,44 @@ function interpolate(string) {
 }
 
 function translate(x, y) {
-    return 'translate('+ x +','+ y +')'
+    return 'translate('+ [x, y] +')'
+}
+
+function scale(x, y) {
+    return 'scale('+ [x, y] +')'
 }
 
 function rotate(angle) {
-    return 'rotate('+angle+')'
+    return 'rotate('+ angle +')'
+}
+
+// TODO: options
+function createSvgShadow(svg, id) {
+    var filter = svg.append('filter')
+        .attr('id', id)
+        .attr('x', '-100%')
+        .attr('y', '-100%')
+        .attr('width', '400%')
+        .attr('height', '400%')
+
+    filter.append('feGaussianBlur')
+        .attr('in', 'SourceAlpha')
+        .attr('stdDeviation', 3)
+        .attr('result', 'blur')
+
+    filter.append('feOffset')
+        .attr('in', 'blur')
+        // .attr('dx', 2)
+        .attr('dy', 2)
+        .attr('result', 'offsetBlur')
+
+    filter.append('feComponentTransfer')
+        .append('feFuncA')
+        .attr('type', 'linear')
+        .attr('slope', 0.5)
+
+    var feMerge = filter.append('feMerge')
+    feMerge.append('feMergeNode')
+    feMerge.append('feMergeNode').attr('in', 'SourceGraphic')
+    return filter
 }
