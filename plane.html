@@ -121,140 +121,99 @@ svg {
 
     'use strict'
 
-    function Timeplot(svg, width, height, margin) {
-        // setup scales ad axes
-        this.time = d3.range(0, 10, 0.01)
-        this.x = d3.scale.linear().domain([0, 10]).range([0, width])
-        this.y = d3.scale.linear().domain([5, -5]).range([0, height])
+    function createGraph(svg, width, height, margin) {
+        svg.attr({
+            width: width + margin + margin,
+            height: height + margin + margin
+        })
+        return svg.append('g').attr('transform', translate(margin, margin))
+    }
 
-        this.xaxis = d3.svg.axis()
-            .scale(this.x)
+
+    function drawTimeplotLayout(graph, width, height, scale) {
+        var xaxis = d3.svg.axis()
+            .scale(scale.x)
             .innerTickSize(0)
             .outerTickSize(0)
 
-        this.yaxis = d3.svg.axis()
-            .scale(this.y)
+        var yaxis = d3.svg.axis()
+            .scale(scale.y)
             .innerTickSize(0)
             .outerTickSize(0)
             .orient('left')
 
-        this.svg = svg
-        this.height = height
-        this.width = width
-        this.line = d3.svg.line()
-            .x(function (d) { return this.x(d.x) })
-            .y(function (d) { return this.y(d.y) })
-
-        // draw graph
-        svg.attr({ width: width+margin*2, height: height+margin*2 })
-        this.graph = svg.append('g').attr('transform', translate(margin, margin))
-
-        this.svg.append('defs')
-            .append('svg:clipPath')
-            .attr('id', 'clip')
-            .append('rect')
-            .attr({ width: this.width, height: this.height })
-
-        this.graph.append('g')
+        graph.append('g')
             .attr('class', 'axis x-axis')
-            .attr('transform', translate(0, this.height/2))
-            .call(this.xaxis)
-            .call(xlabel, 'Time', this.width)
+            .attr('transform', translate(0, height/2))
+            .call(xaxis)
+            .call(xlabel, 'Time', width)
 
-        this.graph.append('g')
+        graph.append('g')
             .attr('class', 'axis y-axis')
-            .call(this.yaxis)
+            .call(yaxis)
 
-        this.graph.selectAll('.x-axis .tick')
+        graph.selectAll('.x-axis .tick')
             .filter(function (d, i) { return i === 0 })
             .remove()
 
-        var clipped = this.graph.append('g').attr('clip-path', 'url(#clip)')
+        var clipped = graph.append('g').attr('clip-path', 'url(#clip)')
         clipped.append('path').attr('class', 'sine')
         clipped.append('path').attr('class', 'cosine')
     }
 
-    Timeplot.prototype.update = function (real, imag) {
-        var cosine = this.time.map(function (t) { return { x: t, y: real(t) }})
-        var sine = this.time.map(function (t) { return { x: t, y: imag(t) }})
-        this.graph.select('.cosine').attr('d', this.line(cosine))
-        this.graph.select('.sine').attr('d', this.line(sine))
+
+    function updateTimeplot(graph, data, line, real, imag) {
+        graph.select('.cosine').attr('d', line(mapToFunc(data, real), scale))
+        graph.select('.sine').attr('d', line(mapToFunc(data, imag), scale))
     }
 
 
-
-    function Zplane(svg, width, height, margin) {
-        // make observable
-        var dispatcher = d3.dispatch('update')
-        d3.rebind(this, dispatcher, 'update', 'on')
-
-        // setup
-        this.x = d3.scale.linear().domain([-1.5, 1.5]).range([0, width])
-        this.y = d3.scale.linear().domain([1.5, -1.5]).range([0, height])
-
-        this.xaxis = d3.svg.axis()
-            .scale(this.x)
+    function drawZplaneLayout(graph, width, height, scale) {
+        var xaxis = d3.svg.axis()
+            .scale(scale.x)
             .innerTickSize(0)
             .outerTickSize(0)
             .tickValues([-1,1])
 
-        this.yaxis = d3.svg.axis()
-            .scale(this.y)
+        var yaxis = d3.svg.axis()
+            .scale(scale.y)
             .innerTickSize(0)
             .outerTickSize(0)
             .orient('left')
             .tickValues([-1,1])
 
-        this.svg = svg
-        this.margin = margin
-        this.width = width
-        this.height = height
-
-        // draw graph
-        svg.attr({ width: width+margin*2, height: height+margin*2 })
-        this.graph = svg.append('g').attr('transform', translate(margin, margin))
-
-        this.graph.append('ellipse').attr({
+        graph.append('ellipse').attr({
             class: 'unit-circle',
-            cx: this.x(0),
-            cy: this.y(0),
-            rx: this.x(1) - this.x(0),
-            ry: this.y(0) - this.y(1)
+            cx: scale.x(0),
+            cy: scale.y(0),
+            rx: scale.x(1) - scale.x(0),
+            ry: scale.y(0) - scale.y(1)
         })
 
-        this.graph.append('g')
+        graph.append('g')
             .attr('class', 'axis x-axis')
-            .attr('transform', translate(0, this.height/2))
-            .call(this.xaxis)
-            .call(xlabel, 'Re(z)', this.width)
+            .attr('transform', translate(0, height/2))
+            .call(xaxis)
+            .call(xlabel, 'Re(z)', width)
 
-        this.graph.append('g')
+        graph.append('g')
             .attr('class', 'axis y-axis')
-            .attr('transform', translate(this.width/2, 0))
-            .call(this.yaxis)
+            .attr('transform', translate(width/2, 0))
+            .call(yaxis)
             .call(ylabel, 'Im(z)', 0)
 
-        this.graph.selectAll('.axis .tick')
+        graph.selectAll('.axis .tick')
             .filter(function (d) { return d === 0 })
             .remove()
-
-        svg.on('click', function () {
-            if (d3.event.defaultPrevented) return
-            var x = d3.event.offsetX - this.margin
-            var y = d3.event.offsetY - this.margin
-            var xi = this.x.invert(x)
-            var yi = this.y.invert(y)
-            this.placePoint([xi, yi])
-            this.update([xi, yi])
-        }.bind(this))
     }
 
-    Zplane.prototype.drawPointVectors = function (d) {
-        var origin = [this.x(0), this.y(0)]
-        var x = this.x(d[0])
-        var y = this.y(d[1])
 
-        this.graph.selectAll('.distance').data([d])
+    function drawPointVectors(graph, scale, points) {
+        var origin = [scale.x(0), scale.y(0)]
+        var x = function (d) { return scale.x(d[0]) }
+        var y = function (d) { return scale.y(d[1]) }
+
+        graph.selectAll('.distance').data(points)
             .attr('x2', x)
             .attr('y2', y)
             .enter()
@@ -265,17 +224,18 @@ svg {
                 .attr('x2', x)
                 .attr('y2', y)
 
-
-        var radius = distance(x - origin[0], y - origin[1])
-        if (radius > 35) radius = 35
-
         var arc = d3.svg.arc()
-            .outerRadius(function(d) { return d[1] })
-            .startAngle(function(d) { return Math.PI/2-d[0] })
+            .outerRadius(function(d) {
+                var radius = distance(d[0] - origin[0], d[1] - origin[1])
+                if (radius > 35) radius = 35
+                return radius
+            })
+            .startAngle(function(d) {
+                return Math.PI/2 - angle(d[0], d[1])
+            })
             .endAngle(Math.PI/2)
 
-
-        this.graph.selectAll('.arc').data([[angle(d[0], d[1]), radius]])
+        graph.selectAll('.arc').data(points)
             .attr('d', arc)
             .enter()
                 .append('path')
@@ -284,74 +244,29 @@ svg {
                 .attr('transform', translate(origin[0], origin[1]))
     }
 
-    Zplane.prototype.placePoint = function (d) {
-        var self = this
-        var t = function (d) {
-            return translate(self.x(d[0]), self.y(d[1]))
-        }
 
-        var drag = d3.behavior.drag()
-            .on('dragstart', dragstart)
-            .on('drag', function (d,i) {
-                var pos = dragmove.call(this, d, i)
-                pos[0] = self.x.invert(pos[0])
-                pos[1] = self.y.invert(pos[1])
-                self.update(pos)
-                self.drawPointVectors(pos)
-            })
-            .on('dragend', dragend)
-
-        this.drawPointVectors(d)
-        this.graph.selectAll('.point').data([d])
-            .attr('transform', t)
-            .enter()
-                .append('circle')
-                .attr('class', 'point')
-                .attr('r', 5)
-                .attr('transform', t)
-                .call(drag)
-    }
-
-
-    function Splane(svg, width, height, margin) {
-        // make observable
-        var dispatcher = d3.dispatch('update')
-        d3.rebind(this, dispatcher, 'update', 'on')
-
-        // setup scale & axes
-        this.x = d3.scale.linear().domain([-2, 2]).range([0, width])
-        this.y = d3.scale.linear().domain([8, -8]).range([0, height])
-
-        this.xaxis = d3.svg.axis()
-            .scale(this.x)
+    function drawSplaneLayout(graph, width, height, scale) {
+        var xaxis = d3.svg.axis()
+            .scale(scale.x)
             .innerTickSize(0)
             .outerTickSize(0)
 
-        this.yaxis = d3.svg.axis()
-            .scale(this.y)
+        var yaxis = d3.svg.axis()
+            .scale(scale.y)
             .innerTickSize(0)
             .outerTickSize(0)
             .orient('left')
 
-        this.svg = svg
-        this.height = height
-        this.width = width
-        this.margin = margin
-
-        var self = this
-
-        // draw graph
-        svg.attr({ width: width+margin*2, height: height+margin*2 })
-        this.graph = svg.append('g').attr('transform', translate(margin, margin))
-
-        this.graph.append('rect').attr({
+        // add shaded area
+        graph.append('rect').attr({
             class: 'left-part',
             x: 0,
             y: 0,
-            width: this.width/2,
-            height: this.height
+            width: width/2,
+            height: height
         })
 
+        // draw dashed lines to show pi, 2pi, -pi, -2pi
         var dashed = [
             { value: Math.PI, text: 'π' },
             { value: 2*Math.PI, text: '2π' },
@@ -359,68 +274,47 @@ svg {
             { value: -2*Math.PI, text: '-2π' }
         ]
 
-        // dashed lines to show pi, 2pi, -pi, -2pi
-        this.graph.selectAll('.dashed').data(dashed).enter()
+        graph.selectAll('.dashed').data(dashed).enter()
             .append('line')
                 .attr('class', 'dashed')
                 .attr('stroke-dasharray', '1,3')
                 .attr('x1', 0)
-                .attr('x2', self.width)
-                .attr('y1', function(d) { return self.y(d.value) })
-                .attr('y2', function(d) { return self.y(d.value) })
+                .attr('x2', width)
+                .attr('y1', function(d) { return scale.y(d.value) })
+                .attr('y2', function(d) { return scale.y(d.value) })
 
-        this.graph.selectAll('.dashed-label').data(dashed).enter()
+        graph.selectAll('.dashed-label').data(dashed).enter()
             .append('text')
                 .attr('class', 'dashed-label')
-                .attr('x', this.width)
+                .attr('x', width)
                 .attr('dx', 3)
-                .attr('y', function(d) { return self.y(d.value) })
+                .attr('y', function(d) { return scale.y(d.value) })
                 .text(function(d) { return d.text })
 
-        this.graph.append('g')
+        // draw axes
+        graph.append('g')
             .attr('class', 'axis x-axis')
-            .attr('transform', translate(0, this.height/2))
-            .call(this.xaxis)
-            .call(xlabel, 'Re(s)', this.width)
+            .attr('transform', translate(0, height/2))
+            .call(xaxis)
+            .call(xlabel, 'Re(s)', width)
 
-        this.graph.append('g')
+        graph.append('g')
             .attr('class', 'axis y-axis')
-            .attr('transform', translate(this.width/2, 0))
-            .call(this.yaxis)
+            .attr('transform', translate(width/2, 0))
+            .call(yaxis)
             .call(ylabel, 'Im(s)', 0)
 
-        this.graph.selectAll('.axis .tick')
+        graph.selectAll('.axis .tick')
             .filter(function (d) { return d === 0 })
             .remove()
-
-        svg.on('click', function () {
-            if (d3.event.defaultPrevented) return
-            var x = d3.event.offsetX - this.margin
-            var y = d3.event.offsetY - this.margin
-            var xi = this.x.invert(x)
-            var yi = this.y.invert(y)
-            this.placePoint([xi, yi])
-            this.update([xi, yi])
-        }.bind(this))
     }
 
-    Splane.prototype.placePoint = function (d) {
-        var self = this
+
+    function drawPoints(graph, scale, points, drag) {
         var t = function (d) {
-            return translate(self.x(d[0]), self.y(d[1]))
+            return translate(scale.x(d[0]), scale.y(d[1]))
         }
-
-        var drag = d3.behavior.drag()
-            .on('dragstart', dragstart)
-            .on('drag', function (d,i) {
-                var pos = dragmove.call(this, d, i)
-                pos[0] = self.x.invert(pos[0])
-                pos[1] = self.y.invert(pos[1])
-                self.update(pos)
-            })
-            .on('dragend', dragend)
-
-        this.graph.selectAll('.point').data([d])
+        graph.selectAll('.point').data(points)
             .attr('transform', t)
             .enter()
                 .append('circle')
@@ -430,14 +324,7 @@ svg {
                 .call(drag)
     }
 
-    Splane.prototype.getMousePosition = function (d) {
-        var pos = {}
-        pos.x = d3.event.pageX - this.margin - this.svg.node().offsetLeft
-        pos.y = d3.event.pageY - this.margin - this.svg.node().offsetTop
-        pos.xi = this.x.invert(pos.x)
-        pos.yi = this.y.invert(pos.y)
-        return pos
-    }
+
 
     ;(function () {
 
@@ -445,53 +332,162 @@ svg {
         var width =  (window.innerWidth - margin * 8) / 3
         var height = width
 
-        var splaneSvg = d3.select('#s-plane')
-        var zplaneSvg = d3.select('#z-plane')
-        var sequationEl = document.getElementById('s-equation')
-        var zequationEl = document.getElementById('z-equation')
 
-        createSvgShadow(splaneSvg, 'drop-shadow')
-        createSvgShadow(zplaneSvg, 'drop-shadow')
 
-        var splane = new Splane(splaneSvg, width, height, margin)
-        var zplane = new Zplane(zplaneSvg, width, height, margin)
-        var timeplot = new Timeplot(d3.select('#timeplot'), width, height, margin)
+        var timeplot = {}
+        timeplot.svg = d3.select('#timeplot')
+        timeplot.time = d3.range(0, 10, 0.01)
+        timeplot.scale = {}
+        timeplot.scale.x = d3.scale.linear().domain([0, 10]).range([0, width])
+        timeplot.scale.y = d3.scale.linear().domain([5, -5]).range([0, height])
+        timeplot.graph = createGraph(timeplot.svg, width, height, margin)
+        timeplot.line = line(timeplot.scale)
 
-        splane.on('update', function(s) {
+        clip(timeplot.svg, 'clip', width, height)
+        drawTimeplotLayout(timeplot.graph, width, height, timeplot.scale)
+
+        var splane = {}
+        splane.svg = d3.select('#s-plane')
+        splane.equation = document.getElementById('s-equation')
+        splane.scale = {}
+        splane.scale.x = d3.scale.linear().domain([-2, 2]).range([0, width])
+        splane.scale.y = d3.scale.linear().domain([8, -8]).range([0, height])
+        splane.graph = createGraph(splane.svg, width, height, margin)
+
+        splane.drag = draggable(function (pos) {
+            var s = []
+            s[0] = splane.scale.x.invert(pos[0])
+            s[1] = splane.scale.y.invert(pos[1])
+            splane.update(s)
+        })
+
+        splane.svg.on('click', function () {
+            if (d3.event.defaultPrevented) return
+            var x = d3.event.offsetX - margin
+            var y = d3.event.offsetY - margin
+            var xi = splane.scale.x.invert(x)
+            var yi = splane.scale.y.invert(y)
+            drawPoints(splane.graph, splane.scale, [[xi, yi]], splane.drag)
+            splane.update([xi, yi])
+        })
+
+        splane.update = function (s) {
             requestAnimationFrame(function () {
                 // e^st = e^(x + yi)t
                 var real = function (t) { return Math.exp(s[0]*t) * Math.cos(s[1]*t) }
                 var imag = function (t) { return Math.exp(s[0]*t) * Math.sin(s[1]*t) }
-                timeplot.update(real, imag)
+                updateTimeplot(timeplot.graph, timeplot.time, timeplot.line, real, imag)
 
                 var z = stoz(s)
-                zplane.placePoint(z)
-                sequationEl.innerHTML = sequationHtml(s[0], s[1])
-                zequationEl.innerHTML = zequationHtml(z[0], z[1])
+                updateEquations(s, z)
+                drawPoints(zplane.graph, zplane.scale, [z], zplane.drag)
+                drawPointVectors(zplane.graph, zplane.scale, [z])
             })
+        }
+
+        createSvgShadow(splane.svg, 'drop-shadow')
+        drawSplaneLayout(splane.graph, width, height, splane.scale)
+
+
+
+        var zplane = {}
+        zplane.svg = d3.select('#z-plane')
+        zplane.equation = document.getElementById('z-equation')
+        zplane.scale = {}
+        zplane.scale.x = d3.scale.linear().domain([-1.5, 1.5]).range([0, width])
+        zplane.scale.y = d3.scale.linear().domain([1.5, -1.5]).range([0, height])
+        zplane.graph = createGraph(zplane.svg, width, height, margin)
+
+        zplane.drag = draggable(function (pos) {
+            var z = []
+            z[0] = zplane.scale.x.invert(pos[0])
+            z[1] = zplane.scale.y.invert(pos[1])
+            zplane.update(z)
         })
 
+        zplane.svg.on('click', function () {
+            if (d3.event.defaultPrevented) return
+            var x = d3.event.offsetX - margin
+            var y = d3.event.offsetY - margin
+            var xi = zplane.scale.x.invert(x)
+            var yi = zplane.scale.y.invert(y)
+            drawPoints(zplane.graph, zplane.scale, [[xi, yi]], zplane.drag)
+            zplane.update([xi, yi])
+        })
 
-        zplane.on('update', function(z) {
+        zplane.update = function (z) {
+            drawPointVectors(zplane.graph, zplane.scale, [z])
             requestAnimationFrame(function () {
                 // z^t = A^t * e^ωit
                 var A = distance(z[0], z[1]).toFixed(2)
                 var w = angle(z[0], z[1]).toFixed(2)
                 var real = function (t) { return Math.pow(A, t) * Math.cos(w*t) }
                 var imag = function (t) { return Math.pow(A, t) * Math.sin(w*t) }
-                timeplot.update(real, imag)
+                updateTimeplot(timeplot.graph, timeplot.time, timeplot.line, real, imag)
 
                 var s = ztos(z)
-                splane.placePoint(s)
-                sequationEl.innerHTML = sequationHtml(s[0], s[1])
-                zequationEl.innerHTML = zequationHtml(z[0], z[1])
+                updateEquations(s, z)
+                drawPoints(splane.graph, splane.scale, [s], splane.drag)
             })
-        })
+        }
+
+        createSvgShadow(zplane.svg, 'drop-shadow')
+        drawZplaneLayout(zplane.graph, width, height, zplane.scale)
+
+
+        function updateEquations(s, z) {
+            splane.equation.innerHTML = sequationHtml(s[0], s[1])
+            zplane.equation.innerHTML = zequationHtml(z[0], z[1])
+        }
+
+        function sequationHtml(x, y) {
+            x = x.toFixed(2)
+            y = y.toFixed(2)
+            return interpolate(
+                's = &sigma; + i&omega;<br>' +
+                'e<sup>st</sup> = e<sup>(&sigma; + i&omega;)t</sup>' +
+                ' = e<sup>({} + i {})t</sup><br>' +
+                'e<sup>st</sup> = <span class="re">e<sup>{}t</sup> cos({}t) </span>' +
+                ' + <span class="im">e<sup>{}t</sup> sin({}t) i</span>',
+                x, y, x, y, x, y
+            )
+        }
+
+        function zequationHtml(x, y) {
+            var A = distance(x, y).toFixed(2)
+            var w = angle(x, y).toFixed(2)
+            return interpolate(
+                'z = Ae<sup>&omega;i</sup><br>' +
+                'z<sup>t</sup> = A<sup>t</sup> e<sup>&omega;it</sup>' +
+                ' = {}<sup>t</sup> e<sup>{}it</sup><br>' +
+                'z<sup>t</sup> = <span class="re">{}<sup>t</sup> cos({}t)</span>' +
+                ' + <span class="im">{}<sup>t</sup> sin({}t) i</span>',
+                A, w, A, w, A, w
+            )
+        }
 
     })();
 
 
     // ----------------------- helpers -----------------------
+
+    function clip(svg, id, width, height) {
+        svg.append('defs')
+            .append('svg:clipPath')
+            .attr('id', id)
+            .append('rect')
+            .attr({ width: width, height: height })
+    }
+
+    function mapToFunc(data, func) {
+        return data.map(function (x) { return [x, func(x)] })
+    }
+
+    function line(scale) {
+        return d3.svg.line()
+            .x(function (d) { return scale.x(d[0]) })
+            .y(function (d) { return scale.y(d[1]) })
+    }
 
     function xlabel(selection, text, pos) {
         selection.append('text')
@@ -509,34 +505,6 @@ svg {
             .attr('dy', '.71em')
             .style('text-anchor', 'end')
             .text(text)
-    }
-
-    function dragstart(d) {
-        d3.event.sourceEvent.preventDefault()
-        var el = d3.select(this)
-        var transform = d3.transform(el.attr('transform'))
-        var t = transform.translate
-        d3.select(this).classed('drag', true)
-            .attr('transform', translate(t[0], t[1]) + scale(1.3, 1.3))
-    }
-
-    function dragmove() {
-        var el = d3.select(this)
-        var x = d3.event.x
-        var y = d3.event.y
-        // this will center the object on the cursor, but it is not too noticeable
-        // requestAnimationFrame(function () {
-            el.attr('transform', translate(x, y) + scale(1.3, 1.3))
-        // })
-        return [x, y]
-    }
-
-    function dragend(d) {
-        var el = d3.select(this)
-        var transform = d3.transform(el.attr('transform'))
-        var t = transform.translate
-        el.classed('drag', false)
-            .attr('transform', translate(t[0], t[1]) + scale(1, 1))
     }
 
     function distance(x, y) {
@@ -577,30 +545,44 @@ svg {
         ]
     }
 
-    function sequationHtml(x, y) {
-        x = x.toFixed(2)
-        y = y.toFixed(2)
-        return interpolate(
-            's = &sigma; + i&omega;<br>' +
-            'e<sup>st</sup> = e<sup>(&sigma; + i&omega;)t</sup>' +
-            ' = e<sup>({} + i {})t</sup><br>' +
-            'e<sup>st</sup> = <span class="re">e<sup>{}t</sup> cos({}t) </span>' +
-            ' + <span class="im">e<sup>{}t</sup> sin({}t) i</span>',
-            x, y, x, y, x, y
-        )
-    }
 
-    function zequationHtml(x, y) {
-        var A = distance(x, y).toFixed(2)
-        var w = angle(x, y).toFixed(2)
-        return interpolate(
-            'z = Ae<sup>&omega;i</sup><br>' +
-            'z<sup>t</sup> = A<sup>t</sup> e<sup>&omega;it</sup>' +
-            ' = {}<sup>t</sup> e<sup>{}it</sup><br>' +
-            'z<sup>t</sup> = <span class="re">{}<sup>t</sup> cos({}t)</span>' +
-            ' + <span class="im">{}<sup>t</sup> sin({}t) i</span>',
-            A, w, A, w, A, w
-        )
+    function draggable(callback) {
+
+        function dragstart(d) {
+            d3.event.sourceEvent.preventDefault()
+            var el = d3.select(this)
+            var transform = d3.transform(el.attr('transform'))
+            var t = transform.translate
+            d3.select(this).classed('drag', true)
+                .attr('transform', translate(t[0], t[1]) + scale(1.3, 1.3))
+        }
+
+        function dragmove() {
+            var el = d3.select(this)
+            var x = d3.event.x
+            var y = d3.event.y
+            // this will center the object on the cursor, but it is not too noticeable
+            // requestAnimationFrame(function () {
+                el.attr('transform', translate(x, y) + scale(1.3, 1.3))
+            // })
+            return [x, y]
+        }
+
+        function dragend(d) {
+            var el = d3.select(this)
+            var transform = d3.transform(el.attr('transform'))
+            var t = transform.translate
+            el.classed('drag', false)
+                .attr('transform', translate(t[0], t[1]) + scale(1, 1))
+        }
+
+        return d3.behavior.drag()
+            .on('dragstart', dragstart)
+            .on('drag', function (d,i) {
+                var pos = dragmove.call(this, d, i)
+                callback(pos)
+            })
+            .on('dragend', dragend)
     }
 
     </script>
