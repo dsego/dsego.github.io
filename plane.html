@@ -380,8 +380,8 @@ svg {
 
                 var z = stoz(s)
                 updateEquations(s, z)
-                drawPoints(zplane.graph, zplane.scale, [z], zplane.drag)
                 drawPointVectors(zplane.graph, zplane.scale, [z])
+                drawPoints(zplane.graph, zplane.scale, [z], zplane.drag)
             })
         }
 
@@ -402,6 +402,7 @@ svg {
             var z = []
             z[0] = zplane.scale.x.invert(pos[0])
             z[1] = zplane.scale.y.invert(pos[1])
+            drawPointVectors(zplane.graph, zplane.scale, [z])
             zplane.update(z)
         })
 
@@ -411,12 +412,13 @@ svg {
             var y = d3.event.offsetY - margin
             var xi = zplane.scale.x.invert(x)
             var yi = zplane.scale.y.invert(y)
-            drawPoints(zplane.graph, zplane.scale, [[xi, yi]], zplane.drag)
-            zplane.update([xi, yi])
+            var z = [xi, yi]
+            drawPointVectors(zplane.graph, zplane.scale, [z])
+            drawPoints(zplane.graph, zplane.scale, [z], zplane.drag)
+            zplane.update(z)
         })
 
         zplane.update = function (z) {
-            drawPointVectors(zplane.graph, zplane.scale, [z])
             requestAnimationFrame(function () {
                 // z^t = A^t * e^ωit
                 var A = distance(z[0], z[1]).toFixed(2)
