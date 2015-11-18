@@ -226,7 +226,7 @@ svg {
 
         var arc = d3.svg.arc()
             .outerRadius(function(d) {
-                var radius = distance(d[0] - origin[0], d[1] - origin[1])
+                var radius = distance(x(d) - origin[0], y(d) - origin[1])
                 if (radius > 35) radius = 35
                 return radius
             })
