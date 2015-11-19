@@ -9,8 +9,14 @@ body {
     font-family: sans-serif;
 }
 
-svg {
-    shape-rendering: optimizeSpeed
+.title {
+    margin-left: 20px;
+    font-size: 20px;
+    font-weight: normal;
+}
+
+.equation {
+    margin-left: 20px;
 }
 
 .drag {
@@ -101,15 +107,18 @@ svg {
 </head>
 <body>
     <div class="col">
+        <h2 class="title">Time</h2>
         <svg id="timeplot"></svg>
     </div>
     <div class="col">
+        <h2 class="title">S-plane</h2>
         <svg id="s-plane"></svg>
-        <p id="s-equation"></p>
+        <p id="s-equation" class="equation"></p>
     </div>
     <div class="col">
+        <h2 class="title">Z-plane</h2>
         <svg id="z-plane"></svg>
-        <p id="z-equation"></p>
+        <p id="z-equation" class="equation"></p>
     </div>
     <p>
         Inspired by
@@ -332,7 +341,7 @@ svg {
         var width =  (window.innerWidth - margin * 8) / 3
         var height = width
 
-
+        // -------------- Time plot --------------
 
         var timeplot = {}
         timeplot.svg = d3.select('#timeplot')
@@ -345,6 +354,10 @@ svg {
 
         clip(timeplot.svg, 'clip', width, height)
         drawTimeplotLayout(timeplot.graph, width, height, timeplot.scale)
+
+
+
+        // -------------- S-plane --------------
 
         var splane = {}
         splane.svg = d3.select('#s-plane')
@@ -387,8 +400,14 @@ svg {
 
         createSvgShadow(splane.svg, 'drop-shadow')
         drawSplaneLayout(splane.graph, width, height, splane.scale)
+        init([-0.5, 1])
 
+        function init(s) {
+            drawPoints(splane.graph, splane.scale, [s], splane.drag)
+            splane.update(s)
+        }
 
+        // -------------- Z-plane --------------
 
         var zplane = {}
         zplane.svg = d3.select('#z-plane')
@@ -436,6 +455,8 @@ svg {
         createSvgShadow(zplane.svg, 'drop-shadow')
         drawZplaneLayout(zplane.graph, width, height, zplane.scale)
 
+
+        // -------------- Equations --------------
 
         function updateEquations(s, z) {
             splane.equation.innerHTML = sequationHtml(s[0], s[1])
