@@ -35,11 +35,13 @@ body {
 
 .axis>text {
     font-size: 12px;
+    cursor: default;
 }
 
 .tick>text {
     fill: #666;
     font-size: 11px;
+    cursor: default;
 }
 
 .point {
@@ -376,8 +378,8 @@ body {
 
         splane.svg.on('click', function () {
             if (d3.event.defaultPrevented) return
-            var x = d3.event.offsetX - margin
-            var y = d3.event.offsetY - margin
+            var x = d3.event.pageX - margin - splane.svg.node().offsetLeft
+            var y = d3.event.pageY - margin - splane.svg.node().offsetTop
             var xi = splane.scale.x.invert(x)
             var yi = splane.scale.y.invert(y)
             drawPoints(splane.graph, splane.scale, [[xi, yi]], splane.drag)
@@ -427,8 +429,8 @@ body {
 
         zplane.svg.on('click', function () {
             if (d3.event.defaultPrevented) return
-            var x = d3.event.offsetX - margin
-            var y = d3.event.offsetY - margin
+            var x = d3.event.pageX - margin - zplane.svg.node().offsetLeft
+            var y = d3.event.pageY - margin - zplane.svg.node().offsetTop
             var xi = zplane.scale.x.invert(x)
             var yi = zplane.scale.y.invert(y)
             var z = [xi, yi]
