@@ -369,7 +369,7 @@ body {
         splane.scale.y = d3.scale.linear().domain([8, -8]).range([0, height])
         splane.graph = createGraph(splane.svg, width, height, margin)
 
-        splane.drag = draggable(function (pos) {
+        splane.drag = draggable(splane.svg, margin, function (pos) {
             var s = []
             s[0] = splane.scale.x.invert(pos[0])
             s[1] = splane.scale.y.invert(pos[1])
@@ -419,7 +419,7 @@ body {
         zplane.scale.y = d3.scale.linear().domain([1.5, -1.5]).range([0, height])
         zplane.graph = createGraph(zplane.svg, width, height, margin)
 
-        zplane.drag = draggable(function (pos) {
+        zplane.drag = draggable(zplane.svg, margin, function (pos) {
             var z = []
             z[0] = zplane.scale.x.invert(pos[0])
             z[1] = zplane.scale.y.invert(pos[1])
@@ -571,7 +571,7 @@ body {
     }
 
 
-    function draggable(callback) {
+    function draggable(svg, margin, callback) {
 
         function dragstart(d) {
             d3.event.sourceEvent.preventDefault()
@@ -584,8 +584,8 @@ body {
 
         function dragmove() {
             var el = d3.select(this)
-            var x = d3.event.x
-            var y = d3.event.y
+            var x = d3.event.sourceEvent.pageX - margin - svg.node().offsetLeft
+            var y = d3.event.sourceEvent.pageY - margin - svg.node().offsetTop
             // this will center the object on the cursor, but it is not too noticeable
             // requestAnimationFrame(function () {
                 el.attr('transform', translate(x, y) + scale(1.3, 1.3))
