@@ -368,6 +368,7 @@ body {
         splane.scale.x = d3.scale.linear().domain([-2, 2]).range([0, width])
         splane.scale.y = d3.scale.linear().domain([8, -8]).range([0, height])
         splane.graph = createGraph(splane.svg, width, height, margin)
+        splane.rect = splane.svg.node().getBoundingClientRect()
 
         splane.drag = draggable(splane.svg, margin, function (pos) {
             var s = []
@@ -378,8 +379,8 @@ body {
 
         splane.svg.on('click', function () {
             if (d3.event.defaultPrevented) return
-            var x = d3.event.pageX - margin - splane.svg.node().offsetLeft
-            var y = d3.event.pageY - margin - splane.svg.node().offsetTop
+            var x = d3.event.pageX - margin - splane.rect.left
+            var y = d3.event.pageY - margin - splane.rect.top
             var xi = splane.scale.x.invert(x)
             var yi = splane.scale.y.invert(y)
             drawPoints(splane.graph, splane.scale, [[xi, yi]], splane.drag)
@@ -418,6 +419,7 @@ body {
         zplane.scale.x = d3.scale.linear().domain([-1.5, 1.5]).range([0, width])
         zplane.scale.y = d3.scale.linear().domain([1.5, -1.5]).range([0, height])
         zplane.graph = createGraph(zplane.svg, width, height, margin)
+        zplane.rect = zplane.svg.node().getBoundingClientRect()
 
         zplane.drag = draggable(zplane.svg, margin, function (pos) {
             var z = []
@@ -429,8 +431,8 @@ body {
 
         zplane.svg.on('click', function () {
             if (d3.event.defaultPrevented) return
-            var x = d3.event.pageX - margin - zplane.svg.node().offsetLeft
-            var y = d3.event.pageY - margin - zplane.svg.node().offsetTop
+            var x = d3.event.pageX - margin - zplane.rect.left
+            var y = d3.event.pageY - margin - zplane.rect.top
             var xi = zplane.scale.x.invert(x)
             var yi = zplane.scale.y.invert(y)
             var z = [xi, yi]
@@ -573,6 +575,8 @@ body {
 
     function draggable(svg, margin, callback) {
 
+        var rect = svg.node().getBoundingClientRect()
+
         function dragstart(d) {
             d3.event.sourceEvent.preventDefault()
             var el = d3.select(this)
@@ -584,8 +588,8 @@ body {
 
         function dragmove() {
             var el = d3.select(this)
-            var x = d3.event.sourceEvent.pageX - margin - svg.node().offsetLeft
-            var y = d3.event.sourceEvent.pageY - margin - svg.node().offsetTop
+            var x = d3.event.sourceEvent.pageX - margin - rect.left
+            var y = d3.event.sourceEvent.pageY - margin - rect.top
             // this will center the object on the cursor, but it is not too noticeable
             // requestAnimationFrame(function () {
                 el.attr('transform', translate(x, y) + scale(1.3, 1.3))
