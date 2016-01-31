@@ -1,5 +1,25 @@
 'use strict'
 
+
+function mapToFunc(data, func) {
+    return data.map(function (x) { return [x, func(x)] })
+}
+
+// naive implementation
+function eventify(target) {
+    target._events = []
+    target.on = function (str, func) {
+        this._events[str] = func
+    }
+    target.trigger = function (str) {
+        var args = []
+        for (var i = 1; i < arguments.length; i++) {
+            args.push(arguments[i])
+        }
+        this._events[str].apply(undefined, args)
+    }
+}
+
 function partial(f) {
     var arity = f.length
     var largs = []
@@ -18,7 +38,6 @@ function partial(f) {
         }
     }
 }
-
 // console.log(partial(test)(1, 2, 3))
 // console.log(partial(test)(1, 2)(3))
 // console.log(partial(test)(1)(2, 3))
@@ -26,6 +45,7 @@ function partial(f) {
 // function test(a, b, c) {
 //     return [a, b, c]
 // }
+
 
 function throttle(fn, wait) {
     var timeout = null
@@ -43,10 +63,6 @@ function throttle(fn, wait) {
     }
 }
 
-function sinewave(amp, freq, phase, t) {
-    return amp * Math.sin(2.0 * Math.PI * freq * t + phase)
-}
-
 function interpolate(string) {
     var args = [].slice.call(arguments, 1)
     return string.replace(/{}/g, function () {
@@ -54,45 +70,15 @@ function interpolate(string) {
     })
 }
 
-function translate(x, y) {
-    return 'translate('+ [x, y] +')'
-}
-
-function scale(x, y) {
-    return 'scale('+ [x, y] +')'
-}
-
-function rotate(angle) {
-    return 'rotate('+ angle +')'
-}
-
-// TODO: options
-function createSvgShadow(svg, id) {
-    var filter = svg.append('filter')
-        .attr('id', id)
-        .attr('x', '-100%')
-        .attr('y', '-100%')
-        .attr('width', '400%')
-        .attr('height', '400%')
-
-    filter.append('feGaussianBlur')
-        .attr('in', 'SourceAlpha')
-        .attr('stdDeviation', 3)
-        .attr('result', 'blur')
-
-    filter.append('feOffset')
-        .attr('in', 'blur')
-        // .attr('dx', 2)
-        .attr('dy', 2)
-        .attr('result', 'offsetBlur')
-
-    filter.append('feComponentTransfer')
-        .append('feFuncA')
-        .attr('type', 'linear')
-        .attr('slope', 0.5)
-
-    var feMerge = filter.append('feMerge')
-    feMerge.append('feMergeNode')
-    feMerge.append('feMergeNode').attr('in', 'SourceGraphic')
-    return filter
+function defaults(options, defaults) {
+    var combined = {}
+    for (var key in defaults) {
+        if (options.hasOwnProperty(key)) {
+            combined[key] = options[key]
+        }
+        else if (defaults.hasOwnProperty(key)){
+            combined[key] = defaults[key]
+        }
+    }
+    return combined
 }
