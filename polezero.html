@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Pole-Zero Plot</title>
+
+    <style>
+
+    body {
+        font-family: sans-serif;
+    }
+
+    h4 {
+        font-weight: normal;
+        text-align: center;
+    }
+
+    label {
+        font-size: 12px;
+        margin-left: 10px;
+    }
+
+    .col {
+        float: left;
+    }
+
+    .axis path,
+    .axis line {
+        fill: none;
+        stroke: #ccc;
+    }
+
+    .axis>text {
+        fill: #333;
+        font-size: 12px;
+        cursor: default;
+    }
+
+    .tick>text {
+        fill: #666;
+        font-size: 11px;
+        cursor: default;
+    }
+
+    .zero circle, .conjugate-zero circle {
+        stroke: mediumblue;
+        stroke-width: 1px;
+        fill: transparent;
+    }
+
+    .pole line, .conjugate-pole line {
+        stroke: mediumblue;
+        stroke-width: 1px;
+    }
+
+    .selected line, .selected circle {
+        stroke-width: 2px;
+    }
+
+    .unit-circle {
+        fill: #f6f6f6;
+        stroke: #ccc;
+        stroke-width: 1px;
+    }
+
+    .shaded {
+        fill: #f6f6f6;
+        stroke: none;
+    }
+
+    .magnitude {
+        fill: none;
+        stroke: darkorange;
+        stroke-width: 1px;
+    }
+
+    .phase {
+        fill: none;
+        stroke: darkorchid;
+        stroke-width: 1px;
+    }
+
+    .area-magnitude {
+        fill: orange;
+        fill-opacity: 0.2;
+        stroke-width: 0;
+    }
+
+    .strength {
+        font-size: 13px;
+        fill: mediumblue;
+    }
+
+    #strength {
+        width: 40px;
+    }
+
+
+    </style>
+</head>
+<body>
+
+    <div class="col">
+        <h4>Pole-Zero</h4>
+        <svg id="zplane"></svg>
+        <div>
+            <button id="add-poles">add pole</button>
+            <button id="add-zeros">add zero</button>
+            <button id="clear">clear</button>
+            <label>Selected</label>
+            <input id="strength" type="number"  value="1" min="1">
+            <button id="remove">remove</button>
+        </div>
+    </div>
+    <div class="col">
+        <h4>Magnitude (dB)</h4>
+        <svg id="magnitude-plot"></svg>
+    </div>
+    <div class="col">
+        <h4>Phase</h4>
+        <svg id="phase-plot"></svg>
+    </div>
+
+
+    <script type="text/javascript" src="d3/d3.min.js"></script>
+    <script type="text/javascript" src="math.js"></script>
+    <script type="text/javascript" src="helpers.js"></script>
+    <script type="text/javascript">
+
+        ;(function () {
+
+            const z = {
+                zeros: [],
+                poles: [],
+                selectedPole: -1,
+                selectedZero: -1
+            }
+
+            z.zeros[0]  = [ 0.0013674060635677, -0.9999990650998917, 1 ]
+            z.zeros[1]  = [-0.7064224164410539, -0.7077904842180222, 1 ]
+            z.poles[0]  = [ 0.3142251190555413, -0.6948674561628037, 1 ]
+            z.poles[1]  = [ 0.1059132792803165, -0.2621513011445515, 1 ]
+
+
+            // z.zeros[0]  = [-1.0000000000000000, -0.0000000000000000, 4 ]
+            // z.poles[0]  = [ 0.4915484263723832, +0.7112936168401900, 1 ]
+            // z.poles[1]  = [ 0.5857195298510415, +0.2797497613893665, 1 ]
+
+
+            const margin = 30
+            const width = Math.floor(document.body.offsetWidth / 30) * 10
+            const height = width
+
+            const zplane = createPlane('#zplane', [-1.5, 1.5], [1.5, -1.5], width, height, margin)
+            const magnitudePlot = createPlane('#magnitude-plot', [0, Math.PI], [60, -60], width, height, margin)
+            const phasePlot = createPlane('#phase-plot', [0, Math.PI], [3.5, -3.5], width, height, margin)
+            const dragPole = createSnapDrag(zplane, updatePole, 5)
+            const dragZero = createSnapDrag(zplane, updateZero, 5)
+            const frequencies = d3.range(0, Math.PI+0.01, 0.01)
+
+            magnitudePlot.scale.y.clamp(true)
+
+            drawZplaneLayout(zplane)
+            drawMagnitudeLayout(magnitudePlot)
+            drawPhaseLayout(phasePlot)
+            createClippingRect(magnitudePlot.svg, 'clip', magnitudePlot.width, magnitudePlot.height)
+            createClippingRect(phasePlot.svg, 'clip', phasePlot.width, phasePlot.height)
+
+            const strengthInput = document.getElementById('strength')
+
+            document.getElementById('add-zeros').addEventListener('click', () => {
+                const len = z.zeros.push(createPoint(0, 0))
+                z.selectedZero = len-1
+                z.selectedPole = -1
+                strengthInput.value = 1
+                redraw()
+            })
+            document.getElementById('add-poles').addEventListener('click', () => {
+                const len = z.poles.push(createPoint(0, 0))
+                z.selectedPole = len-1
+                z.selectedZero = -1
+                strengthInput.value = 1
+                redraw()
+            })
+            strengthInput.addEventListener('input', (e) => {
+                if (z.selectedZero != -1)
+                    z.zeros[z.selectedZero][2] = strengthInput.value
+                else if (z.selectedPole != -1)
+                    z.poles[z.selectedPole][2] = strengthInput.value
+                redraw()
+            })
+            document.getElementById('remove').addEventListener('click', () => {
+                removeSelected(z)
+                redraw()
+            })
+            document.getElementById('clear').addEventListener('click', () => {
+                reset(z)
+                redraw()
+            })
+
+
+            function removeSelected(z) {
+                if (z.selectedZero != -1) {
+                    z.zeros.splice(z.selectedZero, 1)
+                    z.selectedZero = -1
+                }
+                if (z.selectedPole != -1) {
+                    z.poles.splice(z.selectedPole, 1)
+                    z.selectedPole = -1
+                }
+            }
+
+            function reset(z) {
+                z.zeros = []
+                z.poles = []
+                z.selectedPole = -1
+                z.selectedZero = -1
+            }
+
+            function updateZero(x, y, i) {
+                [x, y] = limitToUnitCircle(x, y)
+                z.zeros[i][0] = x
+                z.zeros[i][1] = y
+                redraw()
+            }
+
+            function updatePole(x, y, i) {
+                [x, y] = limitToUnitCircle(x, y)
+                z.poles[i][0] = x
+                z.poles[i][1] = y
+                redraw()
+            }
+
+            function onZeroClick(index) {
+                z.selectedZero = index
+                z.selectedPole = -1
+                strengthInput.value = z.zeros[index][2]
+                redraw()
+            }
+
+            function onPoleClick(index) {
+                z.selectedPole = index
+                z.selectedZero = -1
+                strengthInput.value = z.poles[index][2]
+                redraw()
+            }
+
+            function redraw() {
+                drawZeros(zplane, z.zeros, z.selectedZero, dragZero, onZeroClick)
+                drawPoles(zplane, z.poles, z.selectedPole, dragPole, onPoleClick)
+                const magnitudes = frequencies.map(omega => magnitude(omega, z.poles, z.zeros))
+                const phases = frequencies.map(omega => phase(omega, z.poles, z.zeros))
+                drawPlot(magnitudePlot, magnitudes, 'magnitude', true)
+                drawPlot(phasePlot, phases, 'phase')
+
+                // TODO
+                // - draw unit response
+                // - track mouse, draw distances and angles from poles and zeros to
+                //      e**jw and show magnitude/phase calculations
+            }
+
+            redraw()
+
+        })();
+
+
+        function createPoint(x, y, strength=1) {
+            return [x, y, strength]
+        }
+
+        function limitToUnitCircle(x, y) {
+            const amp = x*x + y*y
+            if (amp >= 1) {
+                const ang = Math.atan2(y, x)
+                x = Math.cos(ang)
+                y = Math.sin(ang)
+            }
+            return [x, y]
+        }
+
+        function magnitude(omega, poles, zeros) {
+            // e^j⍵
+            const x = Math.cos(omega)
+            const y = Math.sin(omega)
+            let numerator = 1
+            let denominator = 1
+
+            // |e^j⍵ - zero|
+            for (let z of zeros) {
+                numerator *= Math.pow(distance(x, y, z[0], z[1]), z[2])
+                if (z[1] != 0)
+                    numerator *= Math.pow(distance(x, y, z[0], -z[1]), z[2]) // conjugate
+            }
+
+            // |e^j⍵ - pole|
+            for (let p of poles) {
+                denominator *= Math.pow(distance(x, y, p[0], p[1]), p[2])
+                if (p[1] != 0)
+                    denominator *= Math.pow(distance(x, y, p[0], -p[1]), p[2]) // conjugate
+            }
+
+            let mag = numerator / denominator
+            if (isNaN(mag)) mag = 1 // 0/0
+            return [omega, 20 * Math.log(mag) / Math.LN10]
+        }
+
+        function phase(omega, poles, zeros) {
+            // e^j⍵
+            const x = Math.cos(omega)
+            const y = Math.sin(omega)
+            let phi = 0
+
+            // ∠ (e^j⍵, pole)
+            for (let p of poles) {
+                phi += Math.atan2(x-p[0], y-p[1]) * p[2]
+                if (p[1] != 0) phi += Math.atan2(x-p[0], y+p[1]) * p[2] // conjugate
+            }
+
+            // ∠ (e^j⍵, zero)
+            for (let z of zeros) {
+                phi -=  Math.atan2(x-z[0], y-z[1]) * z[2]
+                if (z[1] != 0) phi -= Math.atan2(x-z[0], y+z[1]) * z[2] // conjugate
+            }
+            return [omega, wrapPhase(phi)]
+        }
+
+        function wrapPhase(p) {
+            while (p > Math.PI) p -= 2*Math.PI
+            while (p < -Math.PI) p += 2*Math.PI
+            return p
+        }
+
+        function drawPlot(plane, magnitudes, className, fill=false) {
+            const line = d3.line()
+                .x(d => plane.scale.x(d[0]))
+                .y(d => plane.scale.y(d[1]))
+
+            const l = plane.body.selectAll('path.'+className).data([1])
+            l.enter()
+                .append('path')
+                    .classed(className, true)
+                    .attr('clip-path', 'url(#clip)')
+                .merge(l)
+                    .attr('d', line(magnitudes))
+
+            if (fill) {
+                const area = d3.area()
+                    .x0(d => plane.scale.x(d[0]))
+                    .y1(d => plane.scale.y(d[1]))
+                    .y0(d => plane.height)
+                const a = plane.body.selectAll('.area-'+className).data([1])
+                a.enter()
+                    .append('path')
+                        .classed('area-'+className, true)
+                        .attr('clip-path', 'url(#clip)')
+                    .merge(a)
+                        .attr('d', area(magnitudes))
+            }
+        }
+
+        function drawPoles(plane, poles, selected, drag, onClick) {
+            const p = plane.body.selectAll('.pole').data(poles)
+            p.exit().remove()
+            p.enter()
+                .append('g')
+                    .classed('pole', true)
+                    .call(pole)
+                    .call(drag)
+                    .on('click', (d,i) => onClick(i))
+                .merge(p)
+                    .classed('selected', (d,i) => i == selected)
+                    .attr('transform', d => {
+                        const x = plane.scale.x(d[0])
+                        const y = plane.scale.y(d[1])
+                        return 'translate('+[x,y]+')'
+                    })
+                    .select('.strength')
+                        .text(d => d[2])
+                        .attr('visibility', d => d[2]>1 ? 'inherit' : 'hidden')
+
+            const cp = plane.body.selectAll('.conjugate-pole').data(poles)
+            cp.exit().remove()
+            cp.enter()
+                .append('g')
+                    .classed('conjugate-pole', true)
+                    .call(pole)
+                    .call(drag)
+                    .on('click', (d,i) => onClick(i))
+                .merge(cp)
+                    .classed('selected', (d,i) => i == selected)
+                    .attr('visibility', d => d[1]==0 ? 'hidden' : 'visible')
+                    .attr('transform', d => {
+                        const x = plane.scale.x(d[0])
+                        const y = plane.scale.y(-d[1])
+                        return 'translate('+[x,y]+')'
+                    })
+                    .select('.strength')
+                        .text(d => d[2])
+                        .attr('visibility', d => d[2]>1 ? 'inherit' : 'hidden')
+        }
+
+        function drawZeros(plane, zeros, selected, drag, onClick) {
+            const z = plane.body.selectAll('.zero').data(zeros)
+            z.exit().remove()
+            z.enter()
+                .append('g')
+                    .classed('zero', true)
+                    .call(zero)
+                    .call(drag)
+                    .on('click', (d,i) => onClick(i))
+                .merge(z)
+                    .classed('selected', (d,i) => i == selected)
+                    .attr('transform', d => {
+                        const x = plane.scale.x(d[0])
+                        const y = plane.scale.y(d[1])
+                        return 'translate('+[x,y]+')'
+                    })
+                    .select('.strength')
+                        .text(d => d[2])
+                        .attr('visibility', d => d[2]>1 ? 'inherit' : 'hidden')
+
+            const cz = plane.body.selectAll('.conjugate-zero').data(zeros)
+            cz.exit().remove()
+            cz.enter()
+                .append('g')
+                    .classed('conjugate-zero', true)
+                    .call(zero)
+                    .call(drag)
+                    .on('click', (d,i) => onClick(i))
+                .merge(cz)
+                    .classed('selected', (d,i) => i == selected)
+                    .attr('visibility', d => d[1]==0 ? 'hidden' : 'visible')
+                    .attr('transform', d => {
+                        const x = plane.scale.x(d[0])
+                        const y = plane.scale.y(-d[1])
+                        return 'translate('+[x,y]+')'
+                    })
+                    .select('.strength')
+                        .text(d => d[2])
+                        .attr('visibility', d => d[2]>1 ? 'inherit' : 'hidden')
+        }
+
+        function pole(selection) {
+            selection.append('line')
+                .attr('x1', -6)
+                .attr('y1', -6)
+                .attr('x2', 6)
+                .attr('y2', 6)
+            selection.append('line')
+                .attr('x1', -6)
+                .attr('y1', 6)
+                .attr('x2', 6)
+                .attr('y2', -6)
+            selection.append('text')
+                .classed('strength', true)
+                .attr('x', 10)
+            // drag target
+            selection.append('rect')
+                .attr('x', -5)
+                .attr('y', -6)
+                .attr('width', 12)
+                .attr('height', 12)
+                .style('fill', 'transparent')
+        }
+
+        function zero(selection) {
+            selection.append('circle').attr('r', 7)
+            selection.append('text')
+                .classed('strength', true)
+                .attr('x', 10)
+        }
+
+        function createSnapDrag(plane, callback, pixels=3) {
+            return d3.drag()
+                .subject(() => ({ x: d3.event.x, y: d3.event.y }))
+                .on('start', () => d3.event.sourceEvent.preventDefault())
+                .on('drag', (d, i) => {
+                    const x = snap(d3.event.x, plane.origin.x, pixels)
+                    const y = snap(d3.event.y, plane.origin.y, pixels)
+                    callback(plane.scale.x.invert(x), plane.scale.y.invert(y), i)
+                })
+        }
+
+
+    </script>
+</body>
+</html>
