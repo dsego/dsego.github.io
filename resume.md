@@ -250,3 +250,9 @@ Odin, SDL3 (GPU API: Metal, Vulkan), GLSL, PFFFT, miniaudio, stb, just
 *2003 – 2008*
 
 Faculty of Electrical Engineering, Mechanical Engineering and Naval Architecture
+
+---
+
+## Interests
+
+Adventure cycling, ukulele, and photography.
