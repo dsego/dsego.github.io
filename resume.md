@@ -46,7 +46,7 @@ Harness Wealth runs a secure client and advisor portal that connects individuals
 - Added real-time task updates with server-sent events and Redis, and moved external API calls to async (httpx).
 - Integrated Mixpanel, HubSpot tracking, and Sentry across user flows, and managed feature flags through rollout and removal.
 
-*Stack: React, TypeScript, Laravel, PHP, Inertia.js, Django, PostgreSQL, Redis, GCS, AWS Textract*
+<sub>*Stack: React, TypeScript, Laravel, PHP, Inertia.js, Django, PostgreSQL, Redis, GCS, AWS Textract*</sub>
 
 <details markdown="1">
 <summary>Full stack by codebase</summary>
@@ -67,7 +67,7 @@ Harness Wealth runs a secure client and advisor portal that connects individuals
 - Improved an interactive map tool built with SVG.js to support loading external data. Implemented new features based on the provided designs.
 - Participated in technical discussions with the engineering team and helped plan the new architecture and project structure.
 
-*Stack: JavaScript, Node.js, Express.js, React, React Query, Vite, PostgreSQL, MS SQL Server, Plotly, D3.js, Docker*
+<sub>*Stack: JavaScript, Node.js, Express.js, React, React Query, Vite, PostgreSQL, MS SQL Server, Plotly, D3.js, Docker*</sub>
 
 <details>
 <summary>Full stack</summary>
@@ -87,7 +87,7 @@ JavaScript, Node.js, Express.js, Swagger / OpenAPI, React, React Query, Zustand,
 - Solved technical problems in collaboration with other engineers on the team.
 - Performed code reviews in conjunction with the other developers.
 
-*Stack: React, TypeScript, MobX, Mithril.js, CoffeeScript, Laravel, MySQL, D3.js, Bootstrap*
+<sub>*Stack: React, TypeScript, MobX, Mithril.js, CoffeeScript, Laravel, MySQL, D3.js, Bootstrap*</sub>
 
 <details>
 <summary>Full stack</summary>
@@ -108,7 +108,7 @@ React, React Router, TypeScript, MobX, Mithril.js, CoffeeScript, D3.js, ProseMir
 - Created basic end-to-end tests with the Nightwatch browser automation framework.
 - Fixed bugs and cleaned up code in the existing codebase.
 
-*Stack: Leaflet, PostGIS, PHP, Lumen, Nightwatch.js*
+<sub>*Stack: Leaflet, PostGIS, PHP, Lumen, Nightwatch.js*</sub>
 
 <details>
 <summary>Full stack</summary>
@@ -127,7 +127,7 @@ Git, Nightwatch.js, Baobab, Nunjucks, Leaflet, Lumen, PostGIS, GeoJSON, JavaScri
 - Created a prototype web tool for automating bids with Facebook's advertising platform.
 - Created an editing tool prototype based on React Data Grid that saves data to Firebase.
 
-*Stack: React, Redux, Node.js, CakePHP, MongoDB, MySQL, Firebase, Stripe API*
+<sub>*Stack: React, Redux, Node.js, CakePHP, MongoDB, MySQL, Firebase, Stripe API*</sub>
 
 <details>
 <summary>Full stack</summary>
@@ -147,7 +147,7 @@ React, Redux, Redux Thunk, React Router, React Data Grid, Ant Design, Reactstrap
 - Created a web tool for uploading and managing files with endless scrolling and quick file preview.
 - Implemented unit, integration, and acceptance tests for Python and JavaScript code.
 
-*Stack: Python, Django, Open edX, Backbone.js, Sass, Jasmine*
+<sub>*Stack: Python, Django, Open edX, Backbone.js, Sass, Jasmine*</sub>
 
 <details>
 <summary>Full stack</summary>
@@ -163,7 +163,7 @@ Jasmine, Vagrant, Sass, ZURB Foundation, Backbone.js, Django, Python, jQuery, Ca
 - Implemented a publication reader for mobile devices using HTML5, JavaScript, and sophisticated CSS animations.
 - Learned fundamentals in Bootstrap and Less.
 
-*Stack: HTML5, JavaScript, jQuery, CSS animations, CodeIgniter, Bootstrap, Less*
+<sub>*Stack: HTML5, JavaScript, jQuery, CSS animations, CodeIgniter, Bootstrap, Less*</sub>
 
 <details>
 <summary>Full stack</summary>
@@ -181,7 +181,7 @@ HTML5, JavaScript, jQuery, Zepto.js, Spine.js, iScroll, CSS 3D transforms and an
 - Worked on Parent School Network, a school information and engagement platform.
 - Created several websites on Drupal and WordPress.
 
-*Stack: PHP, MySQL, JavaScript, jQuery, Drupal 6, WordPress, Subversion (SVN)*
+<sub>*Stack: PHP, MySQL, JavaScript, jQuery, Drupal 6, WordPress, Subversion (SVN)*</sub>
 
 ### Web Developer — Booking IT
 *2007 – 2009*
@@ -191,7 +191,7 @@ HTML5, JavaScript, jQuery, Zepto.js, Spine.js, iScroll, CSS 3D transforms and an
 - Improved the design and usability of several PHP and .NET websites.
 - Created a Joomla website for a local municipality.
 
-*Stack: .NET, MS SQL Server, PHP, JavaScript, Joomla*
+<sub>*Stack: .NET, MS SQL Server, PHP, JavaScript, Joomla*</sub>
 
 ### Co-founder & Web Developer — Kinitos
 *2006 – 2007*
@@ -201,7 +201,7 @@ HTML5, JavaScript, jQuery, Zepto.js, Spine.js, iScroll, CSS 3D transforms and an
 - Created elaborate .NET web forms for administering boats, equipment, and services.
 - Implemented optimized SQL procedures for MS SQL Server.
 
-*Stack: .NET, MS SQL Server, JavaScript*
+<sub>*Stack: .NET, MS SQL Server, JavaScript*</sub>
 
 ---
 
@@ -214,7 +214,7 @@ HTML5, JavaScript, jQuery, Zepto.js, Spine.js, iScroll, CSS 3D transforms and an
 - Harmonic mode with up to five partials, vernier mode, transposition, instrument tunings with capo, adjustable concert A (400–480 Hz), and four display styles.
 - Targets macOS, iPhone, and Android from one codebase. Coming to the App Store.
 
-*Stack: Odin, SDL3 GPU (Metal, Vulkan), GLSL*
+<sub>*Stack: Odin, SDL3 GPU (Metal, Vulkan), GLSL*</sub>
 
 <details>
 <summary>Full stack</summary>
