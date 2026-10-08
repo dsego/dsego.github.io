@@ -6,22 +6,21 @@
 
 [GitHub](https://github.com/dsego) · [Toptal profile](https://www.toptal.com/developers/resume/davorin-sego)
 
-Full-stack engineer with nearly 20 years of experience building web applications, most recently a fintech platform that handles sensitive tax and financial data. Works across the stack in Python/Django, PHP/Laravel, and React/TypeScript, from data models and APIs to the finished UI. Long background in data-heavy products: dashboards, interactive maps, charting tools, surveys, and booking systems. Writes testable, maintainable code and has worked remotely with distributed teams for over a decade.
+Full-stack engineer with nearly 20 years of experience building web applications, most recently a fintech platform that handles sensitive tax and financial data. Works across the stack in React/TypeScript, PHP/Laravel, and Python/Django, from data models and APIs to the finished UI. Long background in data-heavy products: dashboards, interactive maps, charting tools, surveys, and booking systems. Writes testable, maintainable code and has worked remotely with distributed teams for over a decade.
 
 ---
 
 ## Skills
 
-- **Languages:** Python, TypeScript, JavaScript, PHP, SQL, HTML, CSS/SCSS
-- **Front end:** React (hooks, Suspense), Redux Toolkit, RTK Query, Inertia.js, MobX, Mithril.js, Storybook, Vite
-- **Back end:** Django, Django REST Framework, Laravel, Node.js, Express.js, REST APIs, Server-Sent Events
-- **Databases & storage:** PostgreSQL, MySQL, Redis, MongoDB, MS SQL Server, Google Cloud Storage
-- **Security & auth:** Two-factor auth (TOTP), Laravel Sanctum SSO, field-level encryption, JWT-based SSO
-- **AI & documents:** AWS Textract OCR, LLM-based document classification, PDF.js
-- **Data visualization & maps:** D3.js, Plotly, Leaflet, PostGIS, GeoJSON
-- **Integrations:** HubSpot, Stripe, Dropbox Sign (HelloSign), PandaDoc, Mixpanel, Sentry
-- **Testing:** Cypress, Playwright, pytest, PHPUnit, MirageJS
-- **Tooling & CI:** Git, Docker, GitHub Actions, GitLab CI, uv, Ruff, ESLint, pre-commit
+- **Languages:** TypeScript, JavaScript, PHP, Python, SQL, HTML, CSS/SCSS
+- **Front end:** React, Redux Toolkit, RTK Query, Inertia.js, Storybook, Vite
+- **Back end:** Laravel, Node.js, Django, Django REST Framework
+- **Databases & storage:** PostgreSQL, MySQL, Redis, Google Cloud Storage
+- **AI & documents:** AWS Textract OCR, LLM-based document classification
+- **Data visualization & maps:** D3.js, Plotly, Leaflet
+- **Integrations:** HubSpot, Stripe, Mixpanel, Sentry
+- **Testing:** Cypress, Playwright, PHPUnit
+- **Tooling & CI:** Docker, GitHub Actions, GitLab CI
 
 ---
 
@@ -30,7 +29,7 @@ Full-stack engineer with nearly 20 years of experience building web applications
 ### Senior Full-Stack Engineer — [Harness Wealth](https://www.harness.co/)
 *May 2021 – Present*
 
-Harness Wealth runs a secure client and advisor portal that connects individuals with vetted financial, tax, and estate planning professionals. I built and maintained the core tax engagement platform across three connected codebases: the Django client backend, the React/TypeScript client front end, and the Laravel/Inertia.js internal advisor platform. That came to over 1,600 commits in nearly five years.
+Harness Wealth runs a secure client and advisor portal that connects individuals with vetted financial, tax, and estate planning professionals. I built and maintained the core tax engagement platform across three connected codebases: the React/TypeScript client front end, the Laravel/Inertia.js internal advisor platform, and the Django client backend. That came to over 1,600 commits in nearly five years.
 
 **Tax engagement platform**
 - Designed and built the engagement workflow engine that runs the tax service lifecycle: task creation, assignment, status tracking, reminders, and completion for e-sign, e-file, questionnaire, upload, and payment tasks.
@@ -56,7 +55,11 @@ Harness Wealth runs a secure client and advisor portal that connects individuals
 - Migrated the front end from Flow to TypeScript, and integrated Mixpanel, HubSpot tracking, and Sentry across user flows.
 - Ran 15+ feature flags through their full lifecycle to support safe continuous deployment.
 
-*Stack: Python, Django, DRF, PostgreSQL, Redis, GCS · React, TypeScript, Redux Toolkit, SCSS, Vite · Laravel, PHP 8, Inertia.js · Cypress, Playwright, Docker*
+*Stack by codebase:*
+- **Client front end:** React, TypeScript (migrated from Flow), Redux Toolkit, RTK Query, SCSS, Vite, Yarn, Storybook, PDF.js, Server-Sent Events, Mixpanel, Sentry, PandaDoc, Cypress, Playwright, MirageJS, ESLint, Knip
+- **Advisor platform:** Laravel, PHP 8, Eloquent, MySQL, Sanctum (SSO), Inertia.js, React, TypeScript, PDF.js, AWS Textract, GCS signed URLs, Fernet encryption, HubSpot, Mixpanel, PHPUnit, Pint
+- **Client backend:** Python, Django, Django REST Framework, PostgreSQL, Redis, Google Cloud Storage, httpx, Django OTP, Segno, Docker, Gunicorn, Nginx, HubSpot API, Stripe API, Dropbox Sign (HelloSign), PandaDoc, Trello, Prefinery, Mixpanel, pytest, uv, Ruff, pre-commit
+- **CI:** GitHub Actions, GitLab CI
 
 ### Dashboard Engineer — Lam Research (via Toptal)
 *2020 – 2021*
@@ -67,7 +70,7 @@ Harness Wealth runs a secure client and advisor portal that connects individuals
 - Extended an interactive SVG.js map tool to load external data.
 - Helped plan the new architecture and project structure with the engineering team.
 
-*Stack: JavaScript, Node.js, Swagger, React, PostgreSQL, Docker, D3.js, Plotly*
+*Stack: JavaScript, Node.js, Swagger, React, PostgreSQL, Docker, D3.js, Plotly, SVG.js, Power BI*
 
 ### Full-stack Developer — SHIFT (via Toptal)
 *2018 – 2019*
@@ -89,7 +92,7 @@ Harness Wealth runs a secure client and advisor portal that connects individuals
 - Rewrote the PHP back end with Lumen and added audit logging of user actions.
 - Wrote end-to-end tests with Nightwatch.js.
 
-*Stack: Leaflet, PostGIS, GeoJSON, Lumen, Nunjucks, Baobab, Nightwatch.js*
+*Stack: Leaflet, PostGIS, GeoJSON, PHP, Lumen, Nunjucks, Baobab, Nightwatch.js, JWT-based SSO, Git*
 
 ### Full-stack Developer — Pareto Solutions (via Toptal)
 *2015 – 2017*
@@ -100,6 +103,8 @@ Harness Wealth runs a secure client and advisor portal that connects individuals
 - Prototyped a React Data Grid editing tool backed by Firebase.
 - Worked on numerous CakePHP projects and interactive HTML5/JavaScript demos.
 
+*Stack: PHP, CakePHP, JavaScript, HTML5, React, React Data Grid, Firebase, Stripe API, Facebook API*
+
 ### Senior Web Developer — Extension Engine
 *2013 – 2015*
 
@@ -109,10 +114,14 @@ Harness Wealth runs a secure client and advisor portal that connects individuals
 - Built a file upload and management tool with infinite scrolling and quick preview.
 - Wrote unit, integration, and acceptance tests for Python and JavaScript code.
 
+*Stack: Python, Open edX, JavaScript, Backbone.js, REST APIs*
+
 ### Web Developer — ImadeThis AS
 *2012 – 2013*
 
 - Built a mobile publication reader for Spreads, a digital publishing platform, using HTML5, JavaScript, and advanced CSS animations.
+
+*Stack: HTML5, JavaScript, CSS animations, Bootstrap, Less*
 
 ### Web Developer — Extension Engine
 *2009 – 2012*
@@ -121,17 +130,30 @@ Harness Wealth runs a secure client and advisor portal that connects individuals
 - Worked on Parent School Network, a school information and engagement platform.
 - Built several Drupal and WordPress sites.
 
+*Stack: PHP, JavaScript, jQuery, Drupal, WordPress*
+
 ### Web Developer — Booking IT
 *2007 – 2009*
 
 - Built an embeddable e-booking form for hotel websites, backed by a centralized .NET / MS SQL booking system.
 - Improved the design and usability of several PHP and .NET sites.
+- Built a Joomla website for a local municipality.
+
+*Stack: .NET, MS SQL Server, PHP, Joomla*
 
 ### Co-founder & Web Developer — Kinitos
 *2006 – 2007*
 
 - Co-developed a real-time online booking system for yacht charters.
 - Designed the relational database, .NET admin forms for boats, equipment, and services, and optimized MS SQL stored procedures.
+
+*Stack: .NET, MS SQL Server*
+
+---
+
+## Other technologies
+
+Used at some point but not yet tied to a specific role: MongoDB, Express.js, Redux, Flask, CodeIgniter, Jasmine, Lodash, Pandas, Sass, Webpack, Gulp, YouTrack.
 
 ---
 
