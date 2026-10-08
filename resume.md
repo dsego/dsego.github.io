@@ -177,7 +177,7 @@ HTML5, JavaScript, jQuery, Zepto.js, Spine.js, iScroll, CSS 3D transforms and an
 ### Web Developer — Extension Engine
 *2009 – 2012*
 
-- Helped build a website for CompStudy, a web service for compensation surveys, with interactive reports on executive salary and equity data.
+- Helped build a website for CompStudy, a web service for compensation surveys run by WilmerHale and Park Square Executive Search. Its annual survey collects salary and equity data from over 1,000 executives at venture-backed technology and life sciences companies, and participants get access to interactive reports.
 - Implemented a multi-step web-based questionnaire tool with PHP and JavaScript.
 - Built an interactive charting tool to allow a user to chart, graph, filter, and sort data in different ways.
 - Worked on Parent School Network, a school information and engagement platform.
@@ -197,6 +197,8 @@ HTML5, JavaScript, jQuery, Zepto.js, Spine.js, iScroll, CSS 3D transforms and an
 
 ### Co-founder & Web Developer — Kinitos
 *2006 – 2007*
+
+iBoo is a real-time central booking system for the yacht charter industry. It connects charter providers (fleet management, reservations, contracts, debtor tracking) with agencies and brokers, and offers web services and an affiliate widget for embedding the offer on partner websites. Its first production deployment was at Croatia Yachting, one of the leading charter companies in Dalmatia, in October 2007. Shortly after I left, the system was connected to more than 50 charter agents (February 2008) and rolled out its agency platform at Amar Grupa (April 2008).
 
 - Worked in a small team to envision and develop a real-time online booking system for yacht charters.
 - Helped design a complex relational database for the booking system.
