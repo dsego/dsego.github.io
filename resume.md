@@ -29,37 +29,35 @@ Full-stack engineer with nearly 20 years of experience building web applications
 ### Senior Full-Stack Engineer — Harness Wealth
 *May 2021 – Present*
 
-Harness Wealth runs a secure client and advisor portal that connects individuals with vetted financial, tax, and estate planning professionals. I built and maintained the core tax engagement platform across three connected codebases: the React/TypeScript client front end, the Laravel/Inertia.js internal advisor platform, and the Django client backend. That came to over 1,600 commits in nearly five years.
+Harness Wealth runs a secure client and advisor portal that connects individuals with vetted financial, tax, and estate planning professionals. As part of the engineering team, I worked across the full stack of the core tax engagement platform, which spans three connected codebases: the React/TypeScript client front end, the Laravel/Inertia.js internal advisor platform, and the Django client backend. That came to over 1,600 commits in nearly five years.
 
-**Tax engagement platform**
-- Designed and built the engagement workflow engine that runs the tax service lifecycle: task creation, assignment, status tracking, reminders, and completion for e-sign, e-file, questionnaire, upload, and payment tasks.
-- Built the multi-section tax questionnaire end to end, with conditional logic, repeating groups, auto-save, progress tracking, year-over-year prefill for returning clients, and Excel/CSV export for advisors.
-- Designed the notification and reminder system, with consolidated task emails, configurable cadence, calendar-based triggers, and multi-contact delivery, which reduced manual follow-up by advisors.
-- Built an equity tax scenario tool with interactive comparison tables and charts, RSU/NSO/ISO support, and AMT calculations.
+**Areas where I had the larger role**
+- **Tax questionnaire:** built most of the multi-section questionnaire across front end and back end, including conditional logic, repeating groups, auto-save, progress tracking, year-over-year prefill for returning clients, Excel/CSV export for advisors, and suggested document uploads based on the answers.
+- **Document management:** built most of the document system, from storage to UI. That covers GCS storage with signed URLs and malware scanning, LLM-based auto-categorization, drag-and-drop upload, in-browser PDF preview, team-based access control, and a data model migration across thousands of records.
+- **Notifications:** helped design and build the notification and reminder system, with consolidated task emails, configurable cadence, calendar-based triggers, and multi-contact delivery, which reduced manual follow-up by advisors.
+- **Two-factor authentication:** built most of the 2FA across the full stack, including TOTP setup with QR codes, backup codes, and trusted devices, replacing a legacy SMS-based system.
 
-**Documents & AI**
-- Built the document management system from storage to UI: GCS storage with signed URLs and malware scanning, LLM-based auto-categorization, drag-and-drop upload, in-browser PDF preview, team-based access control, and a data model migration across thousands of records.
-- Led the Tax Assist integration, an AI document analysis feature with AWS Textract OCR, PII redaction, and structured data extraction from IRS forms.
-- Added suggested document uploads based on questionnaire answers, so clients are prompted for the right tax documents.
-
-**Security**
-- Delivered two-factor authentication across the full stack (TOTP setup with QR codes, backup codes, trusted devices), replacing a legacy SMS-based system.
-- Implemented per-user encryption for sensitive questionnaire data, with on-the-fly re-encryption and migration tooling.
-- Built Sanctum-based SSO between the advisor platform and AWS-hosted AI services.
-
-**Platform & integrations**
-- Designed the integration layer between the Laravel advisor platform and the Django client backend for file operations, taxpayer records, and invoices.
-- Built a custom Laravel mail transport that sends Mailable emails through HubSpot transactional email.
+**Other contributions**
+- Worked on the engagement workflow engine that runs the tax service lifecycle, including tasks for e-sign, e-file, questionnaire, upload, and payment.
+- Worked on the Tax Assist integration, an AI document analysis feature with AWS Textract OCR, PII redaction, and structured data extraction from IRS forms.
+- Worked on the equity tax scenario tool, extending its interactive comparison tables and charts, RSU/NSO/ISO support, and AMT calculations.
+- Contributed to security work: per-user encryption for sensitive questionnaire data, and Sanctum-based SSO with AWS-hosted AI services.
+- Worked on the integration layer between the Laravel advisor platform and the Django client backend, and on a custom Laravel mail transport that sends email through HubSpot.
 - Added real-time task updates with server-sent events and Redis, and moved external API calls to async (httpx).
-- Led a dependency upgrade effort across 8+ packages with breaking changes (e.g. Stripe SDK 3→11, google-cloud-storage 2→3).
-- Migrated the front end from Flow to TypeScript, and integrated Mixpanel, HubSpot tracking, and Sentry across user flows.
-- Ran 15+ feature flags through their full lifecycle to support safe continuous deployment.
+- Took part in a dependency upgrade effort across 8+ packages with breaking changes (e.g. Stripe SDK 3→11, google-cloud-storage 2→3).
+- Integrated Mixpanel, HubSpot tracking, and Sentry across user flows, and managed feature flags through rollout and removal.
 
-*Stack by codebase:*
-- **Client front end:** React, TypeScript (migrated from Flow), Redux Toolkit, RTK Query, SCSS, Vite, Yarn, Storybook, PDF.js, Server-Sent Events, Mixpanel, Sentry, PandaDoc, Cypress, Playwright, MirageJS, ESLint, Knip
+*Stack: React, TypeScript, Laravel, PHP, Inertia.js, Django, PostgreSQL, Redis, GCS, AWS Textract, Cypress, Playwright*
+
+<details markdown="1">
+<summary>Full stack by codebase</summary>
+
+- **Client front end:** React, TypeScript, Redux Toolkit, RTK Query, SCSS, Vite, Yarn, Storybook, PDF.js, Server-Sent Events, Mixpanel, Sentry, PandaDoc, Cypress, Playwright, MirageJS, ESLint, Knip
 - **Advisor platform:** Laravel, PHP 8, Eloquent, MySQL, Sanctum (SSO), Inertia.js, React, TypeScript, PDF.js, AWS Textract, GCS signed URLs, Fernet encryption, HubSpot, Mixpanel, PHPUnit, Pint
 - **Client backend:** Python, Django, Django REST Framework, PostgreSQL, Redis, Google Cloud Storage, httpx, Django OTP, Segno, Docker, Gunicorn, Nginx, HubSpot API, Stripe API, Dropbox Sign (HelloSign), PandaDoc, Trello, Prefinery, Mixpanel, pytest, uv, Ruff, pre-commit
 - **CI:** GitHub Actions, GitLab CI
+
+</details>
 
 ### Dashboard Engineer — Lam Research (via Toptal)
 *2020 – 2021*
@@ -92,7 +90,14 @@ Harness Wealth runs a secure client and advisor portal that connects individuals
 - Rewrote the PHP back end with Lumen and added audit logging of user actions.
 - Wrote end-to-end tests with Nightwatch.js.
 
-*Stack: Leaflet, PostGIS, GeoJSON, PHP, Lumen, Nunjucks, Baobab, Nightwatch.js, JWT-based SSO, Git*
+*Stack: Leaflet, PostGIS, PHP, Lumen, Nightwatch.js*
+
+<details>
+<summary>Full stack</summary>
+
+Leaflet, PostGIS, GeoJSON, PHP, Lumen, Nunjucks, Baobab, Nightwatch.js, JWT-based SSO, Git
+
+</details>
 
 ### Full-stack Developer — Pareto Solutions (via Toptal)
 *2015 – 2017*
@@ -160,7 +165,14 @@ Harness Wealth runs a secure client and advisor portal that connects individuals
 - Harmonic mode with up to five partials, vernier mode, transposition, instrument tunings with capo, adjustable concert A (400–480 Hz), and four display styles.
 - Targets macOS, iPhone, and Android from one codebase. Coming to the App Store.
 
-*Stack: Odin, SDL3 (GPU API: Metal, Vulkan), GLSL, PFFFT, miniaudio, stb, just*
+*Stack: Odin, SDL3 GPU (Metal, Vulkan), GLSL*
+
+<details>
+<summary>Full stack</summary>
+
+Odin, SDL3 (GPU API: Metal, Vulkan), GLSL, PFFFT, miniaudio, stb, just
+
+</details>
 
 ### [Clipless](https://clipless.dev) — workflow engine for multi-person and AI-agent forms
 - Developer tool that turns a form defined in a React file into an executable workflow. It handles per-stage email links, reminders, per-person field visibility, AI steps that keep personal data away from the model, and a tamper-evident event log.
