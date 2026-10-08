@@ -6,6 +6,10 @@
   <title>{{ page.title | default: site.title }} · Resume</title>
   <meta name="description" content="{{ site.description }}">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2.1.1/out/water.min.css">
+  <style>
+    /* Start the summary below the floated avatar */
+    blockquote { clear: both; }
+  </style>
 </head>
 <body>
   {{ content }}
