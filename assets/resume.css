@@ -1,0 +1,328 @@
+/* Styles for the HTML that Jekyll renders from resume.md */
+
+:root {
+  --bg: #fbfaf7;
+  --paper: #ffffff;
+  --text: #1f2328;
+  --muted: #5d6670;
+  --faint: #8a929b;
+  --rule: #e4e1da;
+  --accent: #1d5c63;
+  --accent-soft: #e6f0f0;
+
+  --sans: "Source Sans 3", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #15181c;
+    --paper: #1b1f24;
+    --text: #e4e6e9;
+    --muted: #a3abb4;
+    --faint: #7d858e;
+    --rule: #2e343b;
+    --accent: #7cc3c8;
+    --accent-soft: #213438;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 17px;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  line-height: 1.6;
+  text-rendering: optimizeLegibility;
+}
+
+.resume {
+  max-width: 50rem;
+  margin: 3rem auto;
+  padding: 3.5rem 4rem;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+}
+
+a:hover {
+  text-decoration-thickness: 2px;
+}
+
+/* ---------- Header ---------- */
+
+h1 {
+  margin: 0 0 0.25rem;
+  font-family: var(--serif);
+  font-size: 2.6rem;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+
+/* Avatar: <img align="right"> in the markdown */
+img[align="right"] {
+  float: right;
+  width: 112px;
+  height: 112px;
+  margin: 0 0 1rem 2rem;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--accent-soft);
+}
+
+/* Headline and links directly below the name */
+h1 ~ p:nth-of-type(2) {
+  margin: 0;
+  font-size: 1.15rem;
+  color: var(--muted);
+}
+
+h1 ~ p:nth-of-type(2) strong {
+  display: inline;
+  margin: 0;
+  font-size: inherit;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+h1 ~ p:nth-of-type(3) {
+  margin-top: 0.4rem;
+}
+
+/* ---------- Sections ---------- */
+
+hr {
+  clear: both;
+  border: 0;
+  margin: 2.5rem 0 0;
+}
+
+h2 {
+  clear: both;
+  margin: 0 0 1.25rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 2px solid var(--accent);
+  color: var(--accent);
+  font-family: var(--sans);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* Job / project / degree titles */
+h3 {
+  margin: 2.25rem 0 0.1rem;
+  font-family: var(--serif);
+  font-size: 1.2rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+h2 + h3 {
+  margin-top: 0;
+}
+
+h3 a {
+  color: inherit;
+  text-decoration-color: var(--accent);
+}
+
+/* Date line: the *italic* paragraph right after a title */
+h3 + p > em:only-child {
+  display: block;
+  font-style: normal;
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--faint);
+}
+
+h3 + p {
+  margin-top: 0;
+}
+
+p {
+  margin: 0.6rem 0;
+}
+
+ul {
+  margin: 0.5rem 0 0.75rem;
+  padding-left: 1.2rem;
+}
+
+li {
+  margin: 0.3rem 0;
+  padding-left: 0.2rem;
+}
+
+li::marker {
+  color: var(--faint);
+}
+
+strong {
+  font-weight: 600;
+}
+
+/* "Areas where I had the larger role" style labels */
+p > strong:only-child {
+  display: block;
+  margin-top: 1.1rem;
+  font-size: 0.95rem;
+  color: var(--text);
+}
+
+/* ---------- Stack line and collapsibles ---------- */
+
+sub {
+  display: block;
+  margin-top: 0.75rem;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  vertical-align: baseline;
+  color: var(--muted);
+}
+
+sub em {
+  font-style: normal;
+}
+
+details {
+  margin: 0.5rem 0 0;
+  font-size: 0.88rem;
+  color: var(--muted);
+}
+
+summary {
+  display: inline-block;
+  cursor: pointer;
+  list-style: none;
+  padding: 0.1rem 0.6rem;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 0.8rem;
+  font-weight: 600;
+  user-select: none;
+}
+
+summary::-webkit-details-marker {
+  display: none;
+}
+
+summary::before {
+  content: "+ ";
+}
+
+details[open] summary::before {
+  content: "− ";
+}
+
+details[open] {
+  padding: 0 0 0.25rem;
+}
+
+details[open] summary {
+  margin-bottom: 0.4rem;
+}
+
+details ul {
+  margin-top: 0.25rem;
+}
+
+/* ---------- Small screens ---------- */
+
+@media (max-width: 720px) {
+  html {
+    font-size: 16px;
+  }
+
+  .resume {
+    margin: 0;
+    padding: 2rem 1rem;
+    border: 0;
+    border-radius: 0;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  img[align="right"] {
+    width: 80px;
+    height: 80px;
+    margin-left: 1rem;
+  }
+}
+
+/* ---------- Print / Save as PDF ---------- */
+
+@media print {
+  :root {
+    --bg: #fff;
+    --paper: #fff;
+    --text: #000;
+    --muted: #333;
+    --faint: #555;
+    --rule: #ccc;
+    --accent: #1d5c63;
+    --accent-soft: #e6f0f0;
+  }
+
+  @page {
+    margin: 1.6cm 1.8cm;
+  }
+
+  html {
+    font-size: 10.5pt;
+  }
+
+  .resume {
+    max-width: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  h2,
+  h3 {
+    break-after: avoid;
+  }
+
+  li {
+    break-inside: avoid;
+  }
+
+  /* Collapsed details are left out; open one before printing to include it */
+  details:not([open]) {
+    display: none;
+  }
+
+  details[open] summary {
+    display: none;
+  }
+}
