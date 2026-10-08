@@ -29,11 +29,11 @@ Full-stack engineer with nearly 20 years of experience building web applications
 ### Senior Full-Stack Engineer — Harness Wealth
 *May 2021 – Present*
 
-Harness Wealth runs a secure client and advisor portal that connects individuals with vetted financial, tax, and estate planning professionals. As part of the engineering team, I worked across the full stack of the core tax engagement platform, which spans three connected codebases: the React/TypeScript client front end, the Laravel/Inertia.js internal advisor platform, and the Django client backend. That came to over 1,600 commits in nearly five years.
+Harness Wealth runs a secure client and advisor portal that connects individuals with vetted financial, tax, and estate planning professionals. As part of the engineering team, I worked across the full stack of the core tax engagement platform, which spans three connected codebases: the React/TypeScript client front end, the Laravel/Inertia.js internal advisor platform, and the Django client backend.
 
 **Areas where I had the larger role**
-- **Tax questionnaire:** built most of the multi-section questionnaire across front end and back end, including conditional logic, repeating groups, auto-save, progress tracking, year-over-year prefill for returning clients, Excel/CSV export for advisors, and suggested document uploads based on the answers.
-- **Document management:** built most of the document system, from storage to UI. That covers GCS storage with signed URLs and malware scanning, LLM-based auto-categorization, drag-and-drop upload, in-browser PDF preview, team-based access control, and a data model migration across thousands of records.
+- **Tax questionnaire:** a main contributor to the multi-section questionnaire across front end and back end, including conditional logic, repeating groups, auto-save, progress tracking, year-over-year prefill for returning clients, Excel/CSV export for advisors, and suggested document uploads based on the answers.
+- **Document management:** a main contributor to the document system, from storage to UI. That covers GCS storage with signed URLs and malware scanning, LLM-based auto-categorization, drag-and-drop upload, in-browser PDF preview, team-based access control, and a data model migration across thousands of records.
 - **Notifications:** helped design and build the notification and reminder system, with consolidated task emails, configurable cadence, calendar-based triggers, and multi-contact delivery, which reduced manual follow-up by advisors.
 - **Two-factor authentication:** built most of the 2FA across the full stack, including TOTP setup with QR codes, backup codes, and trusted devices, replacing a legacy SMS-based system.
 
