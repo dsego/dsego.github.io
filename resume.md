@@ -14,10 +14,10 @@ Full-stack engineer with nearly 20 years of experience building web applications
 
 - **Languages:** TypeScript, JavaScript, PHP, Python, SQL, HTML, CSS/SCSS, Odin
 - **Front end:** React, TanStack Query (React Query), Inertia.js, Storybook, Vite
+- **Data visualization & maps:** D3.js, Plotly, Leaflet
 - **Back end:** Laravel, Node.js, Django, Django REST Framework
 - **Databases & storage:** PostgreSQL, MySQL, Redis, Google Cloud Storage
 - **AI & documents:** AWS Textract OCR, LLM-based document classification
-- **Data visualization & maps:** D3.js, Plotly, Leaflet
 - **Integrations:** HubSpot, Stripe, Mixpanel, Sentry
 - **Testing:** Jest, PHPUnit
 - **Tooling & CI:** Docker, GitHub Actions, GitLab CI
@@ -53,7 +53,7 @@ Harness Wealth runs a secure client and advisor portal that connects individuals
 
 - **Client front end:** React, TypeScript, Redux Toolkit, RTK Query, SCSS, Vite, Yarn, Storybook, PDF.js, Server-Sent Events, Mixpanel, Sentry, PandaDoc, Cypress, Playwright, MirageJS, ESLint, Knip
 - **Advisor platform:** Laravel, PHP 8, Eloquent, MySQL, Sanctum (SSO), Inertia.js, React, TypeScript, PDF.js, AWS Textract, GCS signed URLs, Fernet encryption, HubSpot, Mixpanel, PHPUnit, Pint
-- **Client backend:** Python, Django, Django REST Framework, PostgreSQL, Redis, Google Cloud Storage, httpx, Django OTP, Segno, Docker, Gunicorn, Nginx, HubSpot API, Stripe API, Dropbox Sign (HelloSign), PandaDoc, Trello, Prefinery, Mixpanel, pytest, uv, Ruff, pre-commit
+- **Client backend:** Python, Django, Django REST Framework, PostgreSQL, Redis, Google Cloud Storage, httpx, Django OTP, Docker, Gunicorn, Nginx, HubSpot API, Stripe API, Dropbox Sign (HelloSign), PandaDoc, Trello, Prefinery, Mixpanel, pytest, uv, Ruff, pre-commit
 - **CI:** GitHub Actions, GitLab CI
 
 </details>
@@ -61,11 +61,11 @@ Harness Wealth runs a secure client and advisor portal that connects individuals
 ### Dashboard Engineer — Lam Research (via Toptal)
 *2020 – 2021*
 
-- Designed and built REST API endpoints feeding the dashboards, using Node.js and Swagger.
-- Rebuilt Power BI reports as interactive web visualizations with Plotly.
-- Laid the groundwork for a new React front end and ported part of the existing codebase to React.
-- Extended an interactive SVG.js map tool to load external data.
-- Helped plan the new architecture and project structure with the engineering team.
+- Designed and built REST API endpoints to feed the dashboards using Node.js and Swagger.
+- Created powerful web-based visualizations based on the Power BI files provided, using the Plotly graphing library and Pandas for data analysis.
+- Laid the groundwork for a new React front end and helped re-implement a portion of the existing codebase into React.
+- Improved an interactive map tool built with SVG.js to support loading external data. Implemented new features based on the provided designs.
+- Participated in technical discussions with the engineering team and helped plan the new architecture and project structure.
 
 *Stack: JavaScript, Node.js, Express.js, React, React Query, Vite, PostgreSQL, MS SQL Server, Plotly, D3.js, Docker*
 
@@ -79,10 +79,13 @@ JavaScript, Node.js, Express.js, Swagger / OpenAPI, React, React Query, Zustand,
 ### Full-stack Developer — SHIFT (via Toptal)
 *2018 – 2019*
 
-- Built full-stack features including psychometric tests, surveys, dashboards, reports, and data visualizations.
-- Developed new front-end product features with a focus on a seamless user experience.
+- Developed full-stack features, including psychometric tests, surveys, dashboards, reports, and data visualizations.
+- Developed new front-end product features with a focus on creating a seamless user experience.
 - Integrated web analytics and customer experience platforms into the product.
-- Took part in architecture discussions, technical decisions, and code reviews.
+- Wrote understandable, testable code with an eye toward maintainability.
+- Participated in technical architecture discussions and helped drive technical decisions.
+- Solved technical problems in collaboration with other engineers on the team.
+- Performed code reviews in conjunction with the other developers.
 
 *Stack: React, TypeScript, MobX, Mithril.js, CoffeeScript, Laravel, MySQL, D3.js, Bootstrap*
 
@@ -96,12 +99,14 @@ React, React Router, TypeScript, MobX, Mithril.js, CoffeeScript, D3.js, ProseMir
 ### Web Developer — 2nd Nature, LLC (via Toptal)
 *2016 – 2017*
 
-- Developed feature-rich interactive map tools on top of Leaflet.
-- Built a CSV import for map features with validation, preview, and field remapping.
-- Implemented PostGIS feature export to shapefile and XLS formats.
-- Implemented token-based single sign-on across a suite of online tools.
-- Rewrote the PHP back end with Lumen and added audit logging of user actions.
-- Wrote end-to-end tests with Nightwatch.js.
+- Helped develop feature-rich map tools built on top of Leaflet, a JavaScript library for interactive maps.
+- Created a CSV import of map features with data validation, preview, and ability to remap fields.
+- Implemented export functionality for PostGIS map features, with support for shapefiles and XLS format.
+- Implemented single sign-on access control, based on web tokens, for a suite of online tools.
+- Rewrote and refactored existing PHP back-end code with the Lumen framework.
+- Developed auditing back-end code to keep track of user actions.
+- Created basic end-to-end tests with the Nightwatch browser automation framework.
+- Fixed bugs and cleaned up code in the existing codebase.
 
 *Stack: Leaflet, PostGIS, PHP, Lumen, Nightwatch.js*
 
@@ -115,11 +120,12 @@ Git, Nightwatch.js, Baobab, Nunjucks, Leaflet, Lumen, PostGIS, GeoJSON, JavaScri
 ### Full-stack Developer — Pareto Solutions (via Toptal)
 *2015 – 2017*
 
-- Built a multi-step checkout with the Stripe API.
-- Built features for a Facebook API–based app for reporting, analytics, and marketing automation, plus a prototype for automating Facebook ad bids.
-- Created a bulk CSV database update tool with preview.
-- Prototyped a React Data Grid editing tool backed by Firebase.
-- Worked on numerous CakePHP projects and interactive HTML5/JavaScript demos.
+- Created a multi-step checkout page with the Stripe API.
+- Created a CSV tool to update database rows in bulk with preview functionality.
+- Implemented required functionalities for a web app that uses the Facebook API for reporting, analytics, and marketing automation.
+- Worked on numerous CakePHP projects and created interactive demos with HTML5 and JavaScript.
+- Created a prototype web tool for automating bids with Facebook's advertising platform.
+- Created an editing tool prototype based on React Data Grid that saves data to Firebase.
 
 *Stack: React, Redux, Node.js, CakePHP, MongoDB, MySQL, Firebase, Stripe API*
 
@@ -134,11 +140,12 @@ React, Redux, Redux Thunk, React Router, React Data Grid, Ant Design, Reactstrap
 *2013 – 2015*
 
 - Did front-end and full-stack development within the Solutions team at edX.
-- Implemented Backbone.js search and course discovery UIs for Open edX, and contributed features and fixes upstream.
-- Worked on a proprietary social learning platform integrating Open edX via its REST API.
-- Implemented new features for PaintNite, a platform for organizing painting parties.
-- Built a file upload and management tool with infinite scrolling and quick preview.
-- Wrote unit, integration, and acceptance tests for Python and JavaScript code.
+- Implemented Backbone.js UIs for search and course discovery on Open edX, an online learning platform.
+- Worked on a proprietary social learning platform that integrates Open edX via RESTful API.
+- Contributed features and bug fixes to Open edX.
+- Implemented new features on PaintNite, a website for organizing painting parties.
+- Created a web tool for uploading and managing files with endless scrolling and quick file preview.
+- Implemented unit, integration, and acceptance tests for Python and JavaScript code.
 
 *Stack: Python, Django, Open edX, Backbone.js, Sass, Jasmine*
 
@@ -152,7 +159,9 @@ Jasmine, Vagrant, Sass, ZURB Foundation, Backbone.js, Django, Python, jQuery, Ca
 ### Web Developer — ImadeThis AS
 *2012 – 2013*
 
-- Built a mobile publication reader for Spreads, a digital publishing platform, using HTML5, JavaScript, and advanced CSS animations.
+- Worked on Spreads, a digital publication platform.
+- Implemented a publication reader for mobile devices using HTML5, JavaScript, and sophisticated CSS animations.
+- Learned fundamentals in Bootstrap and Less.
 
 *Stack: HTML5, JavaScript, jQuery, CSS animations, CodeIgniter, Bootstrap, Less*
 
@@ -166,26 +175,31 @@ HTML5, JavaScript, jQuery, Zepto.js, Spine.js, iScroll, CSS 3D transforms and an
 ### Web Developer — Extension Engine
 *2009 – 2012*
 
-- Helped build CompStudy, a web-based compensation survey tool, including the multi-step questionnaire and interactive reports and charts of executive salary and equity data.
+- Helped build a website for CompStudy, a web service for compensation surveys, with interactive reports on executive salary and equity data.
+- Implemented a multi-step web-based questionnaire tool with PHP and JavaScript.
+- Built an interactive charting tool to allow a user to chart, graph, filter, and sort data in different ways.
 - Worked on Parent School Network, a school information and engagement platform.
-- Built several Drupal and WordPress sites.
+- Created several websites on Drupal and WordPress.
 
 *Stack: PHP, MySQL, JavaScript, jQuery, Drupal 6, WordPress, Subversion (SVN)*
 
 ### Web Developer — Booking IT
 *2007 – 2009*
 
-- Built an embeddable e-booking form for hotel websites, backed by a centralized .NET / MS SQL booking system.
-- Improved the design and usability of several PHP and .NET sites.
-- Built a Joomla website for a local municipality.
+- Created a solution to seamlessly integrate an e-booking web form into hotel websites.
+- Supported a centralized booking system using .NET and MS SQL.
+- Improved the design and usability of several PHP and .NET websites.
+- Created a Joomla website for a local municipality.
 
 *Stack: .NET, MS SQL Server, PHP, JavaScript, Joomla*
 
 ### Co-founder & Web Developer — Kinitos
 *2006 – 2007*
 
-- Co-developed a real-time online booking system for yacht charters.
-- Designed the relational database, .NET admin forms for boats, equipment, and services, and optimized MS SQL stored procedures.
+- Worked in a small team to envision and develop a real-time online booking system for yacht charters.
+- Helped design a complex relational database for the booking system.
+- Created elaborate .NET web forms for administering boats, equipment, and services.
+- Implemented optimized SQL procedures for MS SQL Server.
 
 *Stack: .NET, MS SQL Server, JavaScript*
 
