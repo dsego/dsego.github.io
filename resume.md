@@ -26,7 +26,7 @@ Full-stack engineer with nearly 20 years of experience building web applications
 
 ## Experience
 
-### Senior Full-Stack Engineer — [Harness Wealth](https://www.harness.co/)
+### Senior Full-Stack Engineer — Harness Wealth
 *May 2021 – Present*
 
 Harness Wealth runs a secure client and advisor portal that connects individuals with vetted financial, tax, and estate planning professionals. I built and maintained the core tax engagement platform across three connected codebases: the React/TypeScript client front end, the Laravel/Inertia.js internal advisor platform, and the Django client backend. That came to over 1,600 commits in nearly five years.
