@@ -12,8 +12,8 @@ Full-stack engineer with nearly 20 years of experience building web applications
 
 ## Skills
 
-- **Languages:** TypeScript, JavaScript, PHP, Python, SQL, HTML, CSS/SCSS
-- **Front end:** React, Redux Toolkit, RTK Query, Inertia.js, Storybook, Vite
+- **Languages:** TypeScript, JavaScript, PHP, Python, SQL, HTML, CSS/SCSS, Odin
+- **Front end:** React, Inertia.js, Storybook, Vite
 - **Back end:** Laravel, Node.js, Django, Django REST Framework
 - **Databases & storage:** PostgreSQL, MySQL, Redis, Google Cloud Storage
 - **AI & documents:** AWS Textract OCR, LLM-based document classification
@@ -151,9 +151,20 @@ Harness Wealth runs a secure client and advisor portal that connects individuals
 
 ---
 
-## Other technologies
+## Side projects
 
-Used at some point but not yet tied to a specific role: MongoDB, Express.js, Redux, Flask, CodeIgniter, Jasmine, Lodash, Pandas, Sass, Webpack, Gulp, YouTrack.
+### [Strobie](https://strobie.app) — strobe tuner for musical instruments
+[Source on GitHub](https://github.com/dsego/strobe-tuner/) · GPL-3.0
+
+- Native stroboscopic tuner written in Odin, with real-time pitch detection (NSDF / McLeod method) and a GPU-rendered strobe display.
+- Harmonic mode with up to five partials, vernier mode, transposition, instrument tunings with capo, adjustable concert A (400–480 Hz), and four display styles.
+- Targets macOS, iPhone, and Android from one codebase. Coming to the App Store.
+
+*Stack: Odin, SDL3 (GPU API: Metal, Vulkan), GLSL, PFFFT, miniaudio, stb, just*
+
+### [Clipless](https://clipless.dev) — workflow engine for multi-person and AI-agent forms
+- Developer tool that turns a form defined in a React file into an executable workflow. It handles per-stage email links, reminders, per-person field visibility, AI steps that keep personal data away from the model, and a tamper-evident event log.
+- Built mostly with AI coding agents, as an experiment in AI-assisted development.
 
 ---
 
@@ -162,3 +173,9 @@ Used at some point but not yet tied to a specific role: MongoDB, Express.js, Red
 **Master's Degree in Computer Science**
 Faculty of Electrical Engineering, Mechanical Engineering and Naval Architecture (FESB), University of Split
 *2003 – 2008*
+
+---
+
+## Other technologies
+
+Used at some point but not yet tied to a specific role: MongoDB, Express.js, Redux, Flask, CodeIgniter, Jasmine, Lodash, Pandas, Sass, Webpack, Gulp, YouTrack.
