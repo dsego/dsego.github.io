@@ -1,10 +1,6 @@
 title: Davorin Šego
 description: Senior Full-Stack Engineer · Split, Croatia
 
-# Parse markdown inside HTML blocks such as <details>
-kramdown:
-  parse_block_html: true
-
 # Style resume.md without adding front matter to it,
 # so the file still renders cleanly when viewed on GitHub
 defaults:
