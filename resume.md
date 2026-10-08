@@ -13,7 +13,7 @@ Full-stack engineer with nearly 20 years of experience building web applications
 ## Skills
 
 - **Languages:** TypeScript, JavaScript, PHP, Python, SQL, HTML, CSS/SCSS, Odin
-- **Front end:** React, Inertia.js, Storybook, Vite
+- **Front end:** React, TanStack Query (React Query), Inertia.js, Storybook, Vite
 - **Back end:** Laravel, Node.js, Django, Django REST Framework
 - **Databases & storage:** PostgreSQL, MySQL, Redis, Google Cloud Storage
 - **AI & documents:** AWS Textract OCR, LLM-based document classification
@@ -68,7 +68,14 @@ Harness Wealth runs a secure client and advisor portal that connects individuals
 - Extended an interactive SVG.js map tool to load external data.
 - Helped plan the new architecture and project structure with the engineering team.
 
-*Stack: JavaScript, Node.js, Swagger, React, PostgreSQL, Docker, D3.js, Plotly, SVG.js, Power BI*
+*Stack: JavaScript, Node.js, Express.js, React, React Query, Vite, PostgreSQL, MS SQL Server, Plotly, D3.js, Cypress, Docker*
+
+<details>
+<summary>Full stack</summary>
+
+JavaScript, Node.js, Express.js, Swagger / OpenAPI, React, React Query, Zustand, SWR, React Router, Ant Design, React Bootstrap, styled-components, Sass, Vite, Storybook, PostgreSQL, MS SQL Server, Docker, Git, Git LFS, Jenkins, D3.js, Plotly, SVG.js, Lodash, Luxon, Sentry, JWT, Active Directory, Cypress, Jest, Mocha, Chai, Testing Library, MSW, ESLint, Pandas, Python, Flask, REST APIs, Microsoft Power BI, Mithril.js, YouTrack
+
+</details>
 
 ### Full-stack Developer — SHIFT (via Toptal)
 *2018 – 2019*
@@ -78,7 +85,14 @@ Harness Wealth runs a secure client and advisor portal that connects individuals
 - Integrated web analytics and customer experience platforms into the product.
 - Took part in architecture discussions, technical decisions, and code reviews.
 
-*Stack: React, MobX, Mithril.js, TypeScript, CoffeeScript, Laravel, MySQL, Bootstrap*
+*Stack: React, TypeScript, MobX, Mithril.js, CoffeeScript, Laravel, MySQL, D3.js, Bootstrap*
+
+<details>
+<summary>Full stack</summary>
+
+React, React Router, TypeScript, MobX, Mithril.js, CoffeeScript, D3.js, ProseMirror, CodeMirror, jQuery, Lodash, Bootstrap, Reactstrap, Sass, Webpack, Laravel Mix, Gulp (Laravel Elixir), Bower, Jest, Enzyme, TSLint, PHP, Laravel, MySQL, PHPUnit, Laravel Dusk, Stripe, Intercom, AWS SDK, Sentry, Docker (Laradock)
+
+</details>
 
 ### Web Developer — 2nd Nature, LLC (via Toptal)
 *2016 – 2017*
@@ -95,7 +109,7 @@ Harness Wealth runs a secure client and advisor portal that connects individuals
 <details>
 <summary>Full stack</summary>
 
-Leaflet, PostGIS, GeoJSON, PHP, Lumen, Nunjucks, Baobab, Nightwatch.js, JWT-based SSO, Git
+Git, Nightwatch.js, Baobab, Nunjucks, Leaflet, Lumen, PostGIS, GeoJSON, JavaScript, jQuery, PHP, JWT-based SSO
 
 </details>
 
@@ -108,34 +122,56 @@ Leaflet, PostGIS, GeoJSON, PHP, Lumen, Nunjucks, Baobab, Nightwatch.js, JWT-base
 - Prototyped a React Data Grid editing tool backed by Firebase.
 - Worked on numerous CakePHP projects and interactive HTML5/JavaScript demos.
 
-*Stack: PHP, CakePHP, JavaScript, HTML5, React, React Data Grid, Firebase, Stripe API, Facebook API*
+*Stack: React, Redux, Node.js, CakePHP, MongoDB, MySQL, Firebase, Stripe API*
+
+<details>
+<summary>Full stack</summary>
+
+React, Redux, Redux Thunk, React Router, React Data Grid, Ant Design, Reactstrap, Firebase, Webpack, Babel, Node.js, Express.js, Knex, Objection.js, Redis, pm2, ccxt, MongoDB, MySQL, PHP, CakePHP 3, PHPUnit, Stripe API (Omnipay), Facebook Graph API, Facebook Marketing API, SheetJS, Bootstrap, DataTables, Morris.js, Flot, Sass, Compass, jQuery, HTML5, Mocha, ESLint, Git
+
+</details>
 
 ### Senior Web Developer — Extension Engine
 *2013 – 2015*
 
+- Did front-end and full-stack development within the Solutions team at edX.
 - Implemented Backbone.js search and course discovery UIs for Open edX, and contributed features and fixes upstream.
 - Worked on a proprietary social learning platform integrating Open edX via its REST API.
 - Implemented new features for PaintNite, a platform for organizing painting parties.
 - Built a file upload and management tool with infinite scrolling and quick preview.
 - Wrote unit, integration, and acceptance tests for Python and JavaScript code.
 
-*Stack: Python, Open edX, JavaScript, Backbone.js, REST APIs*
+*Stack: Python, Django, Open edX, Backbone.js, Sass, Jasmine*
+
+<details>
+<summary>Full stack</summary>
+
+Jasmine, Vagrant, Sass, ZURB Foundation, Backbone.js, Django, Python, jQuery, CakePHP, Open edX, REST APIs
+
+</details>
 
 ### Web Developer — ImadeThis AS
 *2012 – 2013*
 
 - Built a mobile publication reader for Spreads, a digital publishing platform, using HTML5, JavaScript, and advanced CSS animations.
 
-*Stack: HTML5, JavaScript, CSS animations, Bootstrap, Less*
+*Stack: HTML5, JavaScript, jQuery, CSS animations, CodeIgniter, Bootstrap, Less*
+
+<details>
+<summary>Full stack</summary>
+
+HTML5, JavaScript, jQuery, Zepto.js, Spine.js, iScroll, CSS 3D transforms and animations, Jasmine, PHP, CodeIgniter, WordPress, Bootstrap, Less, Git
+
+</details>
 
 ### Web Developer — Extension Engine
 *2009 – 2012*
 
-- Built a multi-step questionnaire tool and an interactive charting tool for CompStudy, a compensation survey service.
+- Helped build CompStudy, a web-based compensation survey tool, including the multi-step questionnaire and interactive reports and charts of executive salary and equity data.
 - Worked on Parent School Network, a school information and engagement platform.
 - Built several Drupal and WordPress sites.
 
-*Stack: PHP, JavaScript, jQuery, Drupal, WordPress*
+*Stack: PHP, MySQL, JavaScript, jQuery, Drupal 6, WordPress, Subversion (SVN)*
 
 ### Web Developer — Booking IT
 *2007 – 2009*
@@ -144,7 +180,7 @@ Leaflet, PostGIS, GeoJSON, PHP, Lumen, Nunjucks, Baobab, Nightwatch.js, JWT-base
 - Improved the design and usability of several PHP and .NET sites.
 - Built a Joomla website for a local municipality.
 
-*Stack: .NET, MS SQL Server, PHP, Joomla*
+*Stack: .NET, MS SQL Server, PHP, JavaScript, Joomla*
 
 ### Co-founder & Web Developer — Kinitos
 *2006 – 2007*
@@ -152,7 +188,7 @@ Leaflet, PostGIS, GeoJSON, PHP, Lumen, Nunjucks, Baobab, Nightwatch.js, JWT-base
 - Co-developed a real-time online booking system for yacht charters.
 - Designed the relational database, .NET admin forms for boats, equipment, and services, and optimized MS SQL stored procedures.
 
-*Stack: .NET, MS SQL Server*
+*Stack: .NET, MS SQL Server, JavaScript*
 
 ---
 
@@ -182,12 +218,7 @@ Odin, SDL3 (GPU API: Metal, Vulkan), GLSL, PFFFT, miniaudio, stb, just
 
 ## Education
 
-**Master's Degree in Computer Science**
-Faculty of Electrical Engineering, Mechanical Engineering and Naval Architecture (FESB), University of Split
+### Master's Degree in Computer Science — FESB, University of Split
 *2003 – 2008*
 
----
-
-## Other technologies
-
-Used at some point but not yet tied to a specific role: MongoDB, Express.js, Redux, Flask, CodeIgniter, Jasmine, Lodash, Pandas, Sass, Webpack, Gulp, YouTrack.
+Faculty of Electrical Engineering, Mechanical Engineering and Naval Architecture
