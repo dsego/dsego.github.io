@@ -99,6 +99,8 @@ React, React Router, TypeScript, MobX, Mithril.js, CoffeeScript, D3.js, ProseMir
 ### Web Developer — 2nd Nature, LLC (via Toptal)
 *2016 – 2017*
 
+2NDNATURE builds GIS-based software for stormwater and watershed runoff management, used by municipalities to manage stormwater assets and permit compliance.
+
 - Helped develop feature-rich map tools built on top of Leaflet, a JavaScript library for interactive maps.
 - Created a CSV import of map features with data validation, preview, and ability to remap fields.
 - Implemented export functionality for PostGIS map features, with support for shapefiles and XLS format.
