@@ -59,7 +59,9 @@ Harness Wealth runs a secure client and advisor portal that connects individuals
 </details>
 
 ### Dashboard Engineer — Lam Research (via Toptal)
-*2020 – 2021*
+*Sep 2020 – May 2021*
+
+Lam Research is a global supplier of wafer fabrication equipment for the semiconductor industry. I worked on web dashboards for its manufacturing floor.
 
 - Designed and built REST API endpoints to feed the dashboards using Node.js and Swagger.
 - Created powerful web-based visualizations based on the Power BI files provided, using the Plotly graphing library and Pandas for data analysis.
@@ -76,8 +78,15 @@ JavaScript, Node.js, Express.js, Swagger / OpenAPI, React, React Query, Zustand,
 
 </details>
 
-### Full-stack Developer — SHIFT (via Toptal)
-*2018 – 2019*
+### Developer Screener — Toptal (contract)
+*Feb 2020 – May 2020*
+
+- Screened software developer candidates applying to the Toptal network, evaluating their technical skills.
+
+### Full-stack Developer — SHIFT / Accompany.io (via Toptal)
+*Jan 2018 – Aug 2019*
+
+SHIFT built tools to improve team culture and performance at large companies, using team assessments, surveys, and dashboards. The company later rebranded as Valence.
 
 - Developed full-stack features, including psychometric tests, surveys, dashboards, reports, and data visualizations.
 - Developed new front-end product features with a focus on creating a seamless user experience.
@@ -97,7 +106,7 @@ React, React Router, TypeScript, MobX, Mithril.js, CoffeeScript, D3.js, ProseMir
 </details>
 
 ### Web Developer — 2nd Nature, LLC (via Toptal)
-*2016 – 2017*
+*Sep 2016 – Sep 2017*
 
 2NDNATURE builds GIS-based software for stormwater and watershed runoff management, used by municipalities to manage stormwater assets and permit compliance.
 
@@ -120,7 +129,7 @@ Git, Nightwatch.js, Baobab, Nunjucks, Leaflet, Lumen, PostGIS, GeoJSON, JavaScri
 </details>
 
 ### Full-stack Developer — Pareto Solutions (via Toptal)
-*2015 – 2017*
+*Dec 2015 – Mar 2017, Sep 2017 – May 2018*
 
 - Created a multi-step checkout page with the Stripe API.
 - Created a CSV tool to update database rows in bulk with preview functionality.
@@ -139,7 +148,7 @@ React, Redux, Redux Thunk, React Router, React Data Grid, Ant Design, Reactstrap
 </details>
 
 ### Senior Web Developer — Extension Engine
-*2013 – 2015*
+*Jan 2014 – Jan 2016*
 
 - Did front-end and full-stack development within the Solutions team at edX.
 - Implemented Backbone.js UIs for search and course discovery on Open edX, an online learning platform.
@@ -159,7 +168,7 @@ Jasmine, Vagrant, Sass, ZURB Foundation, Backbone.js, Django, Python, jQuery, Ca
 </details>
 
 ### Web Developer — ImadeThis AS
-*2012 – 2013*
+*Feb 2012 – May 2013*
 
 - Worked on Spreads, a digital publication platform.
 - Implemented a publication reader for mobile devices using HTML5, JavaScript, and sophisticated CSS animations.
@@ -175,7 +184,7 @@ HTML5, JavaScript, jQuery, Zepto.js, Spine.js, iScroll, CSS 3D transforms and an
 </details>
 
 ### Web Developer — Extension Engine
-*2009 – 2012*
+*Jun 2009 – Jun 2012*
 
 - Helped build a website for CompStudy, a web service for compensation surveys run by WilmerHale and Park Square Executive Search. Its annual survey collects salary and equity data from over 1,000 executives at venture-backed technology and life sciences companies, and participants get access to interactive reports.
 - Implemented a multi-step web-based questionnaire tool with PHP and JavaScript.
@@ -186,7 +195,7 @@ HTML5, JavaScript, jQuery, Zepto.js, Spine.js, iScroll, CSS 3D transforms and an
 <sub>*Stack: PHP, MySQL, JavaScript, jQuery, Drupal 6, WordPress, Subversion (SVN)*</sub>
 
 ### Web Developer — Booking IT
-*2007 – 2009*
+*Nov 2007 – Jan 2009*
 
 - Created a solution to seamlessly integrate an e-booking web form into hotel websites.
 - Supported a centralized booking system using .NET and MS SQL.
@@ -196,9 +205,9 @@ HTML5, JavaScript, jQuery, Zepto.js, Spine.js, iScroll, CSS 3D transforms and an
 <sub>*Stack: .NET, MS SQL Server, PHP, JavaScript, Joomla*</sub>
 
 ### Co-founder & Web Developer — Kinitos
-*2006 – 2007*
+*Sep 2006 – May 2007*
 
-iBoo is a real-time central booking system for the yacht charter industry. It connects charter providers (fleet management, reservations, contracts, debtor tracking) with agencies and brokers, and offers web services and an affiliate widget for embedding the offer on partner websites. Its first production deployment was at Croatia Yachting, one of the leading charter companies in Dalmatia, in October 2007. Shortly after I left, the system was connected to more than 50 charter agents (February 2008) and rolled out its agency platform at Amar Grupa (April 2008).
+iBoo is a real-time central booking system for the yacht charter industry. It connects charter providers (fleet management, reservations, contracts, debtor tracking) with agencies and brokers, and offers web services and an affiliate widget for embedding the offer on partner websites. It was developed for Croatia Yachting, one of the leading charter companies in Dalmatia. It went into production there in October 2007, was connected to more than 50 charter agents by February 2008, and rolled out its agency platform at Amar Grupa in April 2008.
 
 - Worked in a small team to envision and develop a real-time online booking system for yacht charters.
 - Helped design a complex relational database for the booking system.
