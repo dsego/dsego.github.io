@@ -16,11 +16,8 @@
 - **Front end:** React, TanStack Query (React Query), Inertia.js, Storybook, Vite
 - **Data visualization & maps:** D3.js, Plotly, Leaflet
 - **Back end:** Laravel, Node.js, Django, Django REST Framework
-- **Databases & storage:** PostgreSQL, MySQL, Redis, Google Cloud Storage
-- **AI & documents:** AWS Textract OCR, LLM-based document classification
+- **Databases & storage:** PostgreSQL, MySQL, Google Cloud Storage
 - **Integrations:** HubSpot, Stripe, Mixpanel, Sentry
-- **Testing:** Jest, PHPUnit
-- **Tooling & CI:** Docker, GitHub Actions, GitLab CI
 
 ---
 
@@ -41,7 +38,8 @@ Harness Wealth runs a secure client and advisor portal that connects individuals
 **Other contributions**
 
 - Worked on the engagement workflow engine that runs the tax service lifecycle, including tasks for e-sign, e-file, questionnaire, upload, and payment.
-- Worked on the Tax Assist integration, an AI document analysis feature with AWS Textract OCR, PII redaction, and structured data extraction from IRS forms.
+- Worked on the AI document analysis tool in the advisor platform, built on Amazon Bedrock (Claude, tool use). It extracts structured client profiles from IRS forms (including 1065, 1120, and 1120S), questionnaire exports, and advisor meeting notes, and merges them with provenance tracking. Also added PII redaction, AWS Textract OCR fallback, and XLS/XLSX text extraction.
+- Worked on the Tax Assist serverless services on AWS (TypeScript, CDK, Lambda): the advisor and reviewer interface, upload validation with file-type sniffing and password-protected PDF handling, a Laravel-to-Cognito SSO bridge, and a scheduled job that syncs job status with the Socrates tax system.
 - Worked on the equity tax scenario tool, extending its interactive comparison tables and charts, RSU/NSO/ISO support, and AMT calculations.
 - Contributed to security work: per-user encryption for sensitive questionnaire data, and Sanctum-based SSO with AWS-hosted AI services.
 - Worked on the integration layer between the Laravel advisor platform and the Django client backend, and on a custom Laravel mail transport that sends email through HubSpot.
@@ -54,8 +52,9 @@ Harness Wealth runs a secure client and advisor portal that connects individuals
 <summary>Full stack by codebase</summary>
 
 - **Client front end:** React, TypeScript, Redux Toolkit, RTK Query, SCSS, Vite, Yarn, Storybook, PDF.js, Server-Sent Events, Mixpanel, Sentry, PandaDoc, Cypress, Playwright, MirageJS, ESLint, Knip
-- **Advisor platform:** Laravel, PHP 8, Eloquent, MySQL, Sanctum (SSO), Inertia.js, React, TypeScript, PDF.js, AWS Textract, GCS signed URLs, Fernet encryption, HubSpot, Mixpanel, PHPUnit, Pint
+- **Advisor platform:** Laravel, PHP 8, Eloquent, MySQL, Sanctum (SSO), Inertia.js, React, TypeScript, PDF.js, Amazon Bedrock (Claude), AWS Textract, GCS signed URLs, Fernet encryption, HubSpot, Mixpanel, PHPUnit, Pint
 - **Client backend:** Python, Django, Django REST Framework, PostgreSQL, Redis, Google Cloud Storage, httpx, Django OTP, Docker, Gunicorn, Nginx, HubSpot API, Stripe API, Dropbox Sign (HelloSign), PandaDoc, Trello, Prefinery, Mixpanel, pytest, uv, Ruff, pre-commit
+- **Tax Assist serverless:** TypeScript, React, AWS CDK, Lambda, API Gateway, Cognito, Secrets Manager, S3, CloudFront, AWS SAM, Jest
 - **CI:** GitHub Actions, GitLab CI
 
 </details>
