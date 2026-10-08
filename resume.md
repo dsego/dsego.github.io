@@ -19,7 +19,7 @@ Full-stack engineer with nearly 20 years of experience building web applications
 - **AI & documents:** AWS Textract OCR, LLM-based document classification
 - **Data visualization & maps:** D3.js, Plotly, Leaflet
 - **Integrations:** HubSpot, Stripe, Mixpanel, Sentry
-- **Testing:** Cypress, Playwright, PHPUnit
+- **Testing:** Jest, PHPUnit
 - **Tooling & CI:** Docker, GitHub Actions, GitLab CI
 
 ---
@@ -44,10 +44,9 @@ Harness Wealth runs a secure client and advisor portal that connects individuals
 - Contributed to security work: per-user encryption for sensitive questionnaire data, and Sanctum-based SSO with AWS-hosted AI services.
 - Worked on the integration layer between the Laravel advisor platform and the Django client backend, and on a custom Laravel mail transport that sends email through HubSpot.
 - Added real-time task updates with server-sent events and Redis, and moved external API calls to async (httpx).
-- Took part in a dependency upgrade effort across 8+ packages with breaking changes (e.g. Stripe SDK 3→11, google-cloud-storage 2→3).
 - Integrated Mixpanel, HubSpot tracking, and Sentry across user flows, and managed feature flags through rollout and removal.
 
-*Stack: React, TypeScript, Laravel, PHP, Inertia.js, Django, PostgreSQL, Redis, GCS, AWS Textract, Cypress, Playwright*
+*Stack: React, TypeScript, Laravel, PHP, Inertia.js, Django, PostgreSQL, Redis, GCS, AWS Textract*
 
 <details markdown="1">
 <summary>Full stack by codebase</summary>
@@ -68,7 +67,7 @@ Harness Wealth runs a secure client and advisor portal that connects individuals
 - Extended an interactive SVG.js map tool to load external data.
 - Helped plan the new architecture and project structure with the engineering team.
 
-*Stack: JavaScript, Node.js, Express.js, React, React Query, Vite, PostgreSQL, MS SQL Server, Plotly, D3.js, Cypress, Docker*
+*Stack: JavaScript, Node.js, Express.js, React, React Query, Vite, PostgreSQL, MS SQL Server, Plotly, D3.js, Docker*
 
 <details>
 <summary>Full stack</summary>
